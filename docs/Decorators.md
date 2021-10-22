@@ -1,86 +1,75 @@
+데코레이터 API는 서버 인스턴스 그 자체나 HTTP 라이프사이클 중에 모든 요청과 응답 객체 등 Fastify 핵심 객체들을 수정하는 것을 허용해줍니다.
+데코레이터 API는 핵심 객체들에 그 어떤 타입의 속성이라도 추가해줄 수 있게 해줍니다.
+예를 들어 함수나 순수 객체 혹은 내장 타입들이 있습니다.
+이 API는 *동적*입니다.
+데코레이터를 비동기적으로 정의하는 것은 Fastify 인스턴스가 데코레이터가 완전히 초기화되기 전에 실행하는 결과를 초래할 수도 있습니다.
+이 문제를 피하기 위해서는 `fastify-plugin`을 혼합된 `register` API를 사용하여 비동기 데코레이터를 대신 정의해야만 합니다.
+더 알아보고 싶으시다면 [Plugins](Plugins.md) 문서를 확인하세요.
 
-
-The decorators API allows customization of the core Fastify objects, such as
-the server instance itself and any request and reply objects used during the
-HTTP request lifecycle. The decorators API can be used to attach any type of
-property to the core objects, e.g. functions, plain objects, or native types.
-
-This API is *synchronous*. Attempting to define a decoration
-asynchronously could result in the Fastify instance booting before the
-decoration completes its initialization. To avoid this issue, and register an
-asynchronous decoration, the `register` API, in combination with
-`fastify-plugin`, must be used instead. To learn more, see the
-[Plugins](Plugins.md) documentation.
-
-Decorating core objects with this API allows the underlying JavaScript engine
-to optimize the handling of server, request, and reply objects. This is
-accomplished by defining the shape of all such object instances before they are
-instantiated and used. As an example, the following is not recommended because
-it will change the shape of objects during their lifecycle:
+핵심 객체들을 이 API로 수정하는 것은 내부적인 JavaScript 엔진이 서버, 요청 그리고 응답 객체에 대한 처리를 효율적으로 할 수 있게 해줍니다.
+이 것은 그들이 모두 초기화되고 쓰이기 전에 모든 객체 인스턴스의 모양을 정의해주게 되므로써 달성됩니다.
+예제와 같이 아래는 라이프사이클 중에 객체들의 모양을 변경하기 때문에 권장되지 않습니다:
 
 ```js
-// Bad example! Continue reading.
+// 이건 나쁜 예제입니다! 계속 읽으세요.
 
-// Attach a user property to the incoming request before the request
-// handler is invoked.
+// user 속성을 들어오는 요청 핸들러에 요청이 처리되기 전에 추가합니다.
 fastify.addHook('preHandler', function (req, reply, done) {
   req.user = 'Bob Dylan'
   done()
 })
 
-// Use the attached user property in the request handler.
+// 추가된 user 속성을 요청 핸들러에서 사용합니다.
 fastify.get('/', function (req, reply) {
   reply.send(`Hello, ${req.user}`)
 })
 ```
 
-Since the above example mutates the request object after it has already
-been instantiated, the JavaScript engine must deoptimize access to the request
-object. By using the decoration API this deoptimization is avoided:
+위의 예제가 요청 객체를 그것이 이미 인스턴스화된 후에 변경하므로써 JavaScript 엔진은 반드시 비효율적으로 요청 객체에 접근해야 합니다.
+데코레이터 API를 사용하면 이런 비효율을 피할 수 있습니다:
 
 ```js
-// Decorate request with a 'user' property
+// 요청을 'user' 속성으로 꾸며줍니다.
 fastify.decorateRequest('user', '')
 
-// Update our property
+// 속성을 업데이트합니다.
 fastify.addHook('preHandler', (req, reply, done) => {
   req.user = 'Bob Dylan'
   done()
 })
-// And finally access it
+// 그리고 최종적으로 접근합니다.
 fastify.get('/', (req, reply) => {
   reply.send(`Hello, ${req.user}!`)
 })
 ```
 
-Note that it is important to keep the initial shape of a decorated field as close as possible to the value intended to be set dynamically in the future. Initialize a decorator as a `''` if the intended value is a string, and as `null` if it will be an object or a function.
+이후에 동적으로 설정되도록 의도된 값들에 최대한 유사하게 꾸며진 초기의 모양을 유지해야 한다는 것을 기억하세요.
+데코레이터를 `''`로 초기화하는 것은 그 값이 문자열이라는 것을 의도하며 그것이 객체나 함수일 때는 `null`을 사용하게 됩니다.
 
-Remember this example works only with value types as reference types will be shared amongst all requests.
-See [decorateRequest](#decorate-request).
+이 예제가 레퍼런스 타입과만 동작하고 모든 요청에 공유된다는 것을 기억하세요.
+[decorateRequest](#decorate-request)를 참고해주세요.
 
-See
+이 주제에 관련해서 더 알아보시려면
 [JavaScript engine fundamentals: Shapes and Inline Caches](https://mathiasbynens.be/notes/shapes-ics)
-for more information on this topic.
+를 확인해보세요.
 
-### Usage
+##  사용법
 <a name="usage"></a>
-
 
 ###  `decorate(name, value, [dependencies])`
 <a name="decorate"></a>
 
+이 메서드는 Fastify [서버](Server.md) 인스턴스를 수정하는데 사용됩니다.
 
-This method is used to customize the Fastify [server](Server.md) instance.
-
-For example, to attach a new method to the server instance:
+예를 들어 서버 인스턴스에 새로운 메서드를 붙이려면:
 
 ```js
 fastify.decorate('utility', function () {
-  // Something very useful
+  // 뭔가 유용한 것
 })
 ```
 
-As mentioned above, non-function values can be attached:
+위에서 언급된대로 함수가 아닌 값들도 추가될 수 있습니다:
 
 ```js
 fastify.decorate('conf', {
@@ -89,8 +78,7 @@ fastify.decorate('conf', {
 })
 ```
 
-To access decorated properties, use the name provided to the
-decoration API:
+꾸며진 속성들에 접근하려면 데코레이터 API에 주었던 이름을 사용하세요:
 
 ```js
 fastify.utility()
@@ -98,7 +86,7 @@ fastify.utility()
 console.log(fastify.conf.db)
 ```
 
-The decorated [Fastify server](Server.md) is bound to `this` in route [route](Routes.md) handlers:
+꾸며진 [Fastify 서버](Server.md)는 [라우팅](Routes.md) 핸들러의 `this`에 바운딩됩니다:
 
 ```js
 fastify.decorate('db', new DbConnection())
@@ -108,48 +96,42 @@ fastify.get('/', async function (request, reply) {
 })
 ```
 
-The `dependencies` parameter is an optional list of decorators that the
-decorator being defined relies upon. This list is simply a list of string names
-of other decorators. In the following example, the "utility" decorator depends
-upon "greet" and "log" decorators:
+`dependencies` 파라메터는 데코레이터들의 선택적인 목록이며 정의되는 데코레이터는 다음 것들에 의존함을 의미합니다.
+이 목록은 단순히 다른 데코레이터들의 문자열 이름들입니다.
+다음 예제에서 "utility" 데코레이터는 "greet"과 "log" 데코레이터에 의존합니다:
 
 ```js
 fastify.decorate('utility', fn, ['greet', 'log'])
 ```
 
-Note: using an arrow function will break the binding of `this` to the
-`FastifyInstance`.
+참고: 화살표 함수를 사용하는 것은 `FastifyInstance`의 `this` 바인딩을 망칠 것입니다.
 
-If a dependency is not satisfied, the `decorate` method will throw an exception.
-The dependency check is performed before the server instance is booted. Thus,
-it cannot occur during runtime.
+만약 의존성이 충족되지 않았다면 `decorate` 메서드는 예외를 발생시킬 것입니다.
+의존성 확인은 서버 인스턴스가 부팅되기 전에 이루어집니다.
+그러므로 런타임 중에서는 일어날 수가 없습니다.
 
 ###  `decorateReply(name, value, [dependencies])`
 <a name="decorate-reply"></a>
 
-
-As the name suggests, this API is used to add new methods/properties to the core
-`Reply` object:
+이름에서 보이듯이 이 API는 핵심 `Reply` 객체에 새로운 메서드나 속성을 추가하는데 쓰입니다:
 
 ```js
 fastify.decorateReply('utility', function () {
-  // Something very useful
+  // 뭔가 굉장히 유용한 것
 })
 ```
 
-Note: using an arrow function will break the binding of `this` to the Fastify
-`Reply` instance.
+참고: 화살표 함수를 사용하는 것은 Fastify `Reply` 인스턴스의 `this` 바인딩을 망가뜨릴 것입니다.
 
-Note: using `decorateReply` will emit a warning if used with a reference type:
+참고: 만약 레퍼런스 타입과 함께 `decorateReply`를 사용했다면 경고가 출력될 것입니다:
 
 ```js
-// Don't do this
+// 이거 하지마세요
 fastify.decorateReply('foo', { bar: 'fizz'})
 ```
-In this example, the reference of the object is shared with all the requests: **any
-mutation will impact all requests, potentially creating security vulnerabilities or memory leaks**. 
-To achieve proper encapsulation across requests configure a new value for each incoming request
-in the [`'onRequest'` hook](Hooks.md#onrequest). Example:
+위의 예제에서 레퍼런스 타입인 객체는 다른 모든 요청들과 공유될 것입니다: **모든 수정 사항은 모든 요청에 걸쳐서 영향을 줄 것이며 잠재적으로 보안 취약점이나 메모리 누수를 초래할 수 있습니다**.
+요청간의 올바른 캡슐화를 달성하려면 들어오는 요청에 대해 [`'onRequest'` 훅](Hooks.md#onrequest)에서 새 값을 설정하세요.
+예시:
 
 ```js
 const fp = require('fastify-plugin')
@@ -158,41 +140,38 @@ async function myPlugin (app) {
   app.decorateRequest('foo', null)
   app.addHook('onRequest', async (req, reply) => {
     req.foo = { bar: 42 }
-  }) 
+  })
 }
 
 module.exports = fp(myPlugin)
 ```
 
-See [`decorate`](#decorate) for information about the `dependencies` parameter.
+`depedencies` 파라메터에 관련한 더 많은 정보는 [`decorate`](#decorate)를 참조하세요.
 
 ###  `decorateRequest(name, value, [dependencies])`
 <a name="decorate-request"></a>
 
-
-As above with [`decorateReply`](#decorate-reply), this API is used add new
-methods/properties to the core `Request` object:
+위의 [`decorateReply`](#decorate-reply)와 같이, 이 API는 새로운 메서드나 속성을 핵심 `Request` 객체에 추가하는데에 쓰입니다:
 
 ```js
 fastify.decorateRequest('utility', function () {
-  // something very useful
+  // 뭔가 굉장히 유용한 것
 })
 ```
 
-Note: using an arrow function will break the binding of `this` to the Fastify
-`Request` instance.
+참고: 화살표 함수를 사용하는 것은 Fastify `Request` 인스턴스에 대한 `this` 바인딩을 망가뜨릴 것입니다.
 
-Note: using `decorateRequest` will emit a warning if used with a reference type:
+참고: `decorateRequest`를 레퍼런스 타입과 함께 사용하면 경고가 출력될 것입니다:
 
 ```js
-// Don't do this
+// 이건 하지마세요
 fastify.decorateRequest('foo', { bar: 'fizz'})
 ```
-In this example, the reference of the object is shared with all the requests: **any
-mutation will impact all requests, potentially creating security vulnerabilities or memory leaks**.
+이 예제에서 레퍼런스 타입인 객체는 모든 요청과 함께 공유될 것입니다: **그 어떤 변경
+위의 예제에서 레퍼런스 타입인 객체는 다른 모든 요청들과 공유될 것입니다: **모든 수정 사항은 모든 요청에 걸쳐서 영향을 줄 것이며 잠재적으로 보안 취약점이나 메모리 누수를 초래할 수 있습니다**.
 
-To achieve proper encapsulation across requests configure a new value for each incoming request
-in the [`'onRequest'` hook](Hooks.md#onrequest). Example:
+요청간의 올바른 캡슐화를 달성하려면 들어오는 요청에 대해 [`'onRequest'` 훅](Hooks.md#onrequest)에서 새 값을 설정하세요.
+예시:
 
 ```js
 const fp = require('fastify-plugin')
@@ -201,19 +180,18 @@ async function myPlugin (app) {
   app.decorateRequest('foo', null)
   app.addHook('onRequest', async (req, reply) => {
     req.foo = { bar: 42 }
-  }) 
+  })
 }
 
 module.exports = fp(myPlugin)
 ```
 
-See [`decorate`](#decorate) for information about the `dependencies` parameter.
+`depedencies` 파라메터에 관련한 더 많은 정보는 [`decorate`](#decorate)를 참조하세요.
 
 ###  `hasDecorator(name)`
 <a name="has-decorator"></a>
 
-
-Used to check for the existence of a server instance decoration:
+서버 인스턴스에 꾸며진 속성이 있는지 확인하는데 사용됩니다:
 
 ```js
 fastify.hasDecorator('utility')
@@ -222,8 +200,7 @@ fastify.hasDecorator('utility')
 #### hasRequestDecorator
 <a name="has-request-decorator"></a>
 
-
-Used to check for the existence of a Request decoration:
+Request에 꾸며진 속성이 있는지 확인하는데 사용됩니다:
 
 ```js
 fastify.hasRequestDecorator('utility')
@@ -232,59 +209,53 @@ fastify.hasRequestDecorator('utility')
 #### hasReplyDecorator
 <a name="has-reply-decorator"></a>
 
-
-Used to check for the existence of a Reply decoration:
+Reply에 꾸며진 속성이 있는지 확인하는데 사용됩니다:
 
 ```js
 fastify.hasReplyDecorator('utility')
 ```
 
-### Decorators and Encapsulation
+##  데코레이터와 캡슐화
 <a name="decorators-encapsulation"></a>
 
+(`decorate`, `decorateRequest`, 혹은 `decorateReply`를 사용하여) 같은 이름의 데코레이터를 한 번 이상 같은 **캡슐화** 범위에서 정의하는 것은 예외를 발생시킵니다.
 
-Defining a decorator (using `decorate`, `decorateRequest`, or `decorateReply`)
-with the same name more than once in the same **encapsulated** context will
-throw an exception.
-
-As an example, the following will throw:
+따라서 아래 예제는 예외를 발생시킵니다:
 
 ```js
 const server = require('fastify')()
 
 server.decorateReply('view', function (template, args) {
-  // Amazing view rendering engine
+  // 개쩌는 렌더링 뷰 엔진
 })
 
 server.get('/', (req, reply) => {
   reply.view('/index.html', { hello: 'world' })
 })
 
-// Somewhere else in our codebase, we define another
-// view decorator. This throws.
+// 어딘가 다른 곳에서 저희는 다른 뷰 데코레이터를 정의합니다.
+// 그리고 예외를 발생시켜요.
 server.decorateReply('view', function (template, args) {
-  // Another rendering engine
+  // 다른 렌더링 엔진
 })
 
 server.listen(3000)
 ```
 
-
-But this will not:
+그러나 이것은 예외를 발생시키지 않을 것입니다:
 
 ```js
 const server = require('fastify')()
 
 server.decorateReply('view', function (template, args) {
-  // Amazing view rendering engine.
+  // 개쩌는 렌더링 뷰 엔진.
 })
 
 server.register(async function (server, opts) {
-  // We add a view decorator to the current encapsulated
-  // plugin. This will not throw as outside of this encapsulated
-  // plugin view is the old one, while inside it is the new one.
+  // 저희는 현재 캡슐화 범위에 뷰 데코레이터를 추가했습니다.
+  // 이것은 캡슐화된 플러그인 밖의 영역이므로 예외를 발생시키지 않을 것입니다.
   server.decorateReply('view', function (template, args) {
-    // Another rendering engine
+    // 또 다른 렌더링 엔진
   })
 
   server.get('/', (req, reply) => {
@@ -295,13 +266,12 @@ server.register(async function (server, opts) {
 server.listen(3000)
 ```
 
-### Getters and Setters
+### Getters와 Setters
 <a name="getters-setters"></a>
 
-
-Decorators accept special "getter/setter" objects. These objects have functions
-named `getter` and `setter` (though the `setter` function is optional). This
-allows defining properties via decorators, for example:
+데코레이터들은 특별한 "getter/setter" 객체들을 가집니다.
+이러한 객체들은 `getter`와 `setter`로 명명된 함수들을 가집니다 (`setter` 함수는 선택적이예요).
+이것은 데코레이터로 속성을 정의할 수 있게 해줍니다, 예를 들어:
 
 ```js
 fastify.decorate('foo', {
@@ -311,7 +281,7 @@ fastify.decorate('foo', {
 })
 ```
 
-Will define the `foo` property on the Fastify instance:
+Fastify 인스턴스에 `foo` 속성을 정의할 것입니다:
 
 ```js
 console.log(fastify.foo) // 'a getter'
