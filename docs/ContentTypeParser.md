@@ -1,7 +1,9 @@
 기본적으로 Fastify는 `'application/json'`과 `'text/plain'` 컨텐츠 타입만 지원합니다.
 현재 기본적인 인코딩은 `utf-8`입니다.
 만약에 다른 컨텐츠 타입을 지원하고 싶으시다면 `addContentTypeParser` API를 사용하실 수 있습니다.
+
 *기본적인 JSON 혹은 순수 텍스트 파서는 변경되거나 제거될 수도 있습니다.*
+
 *노트: 만약 당신이 `Content-Type` 헤더에 따라 자신만의 컨텐츠 타입 파서를 작성하기로 하였다면 UTF-8이 기본값이 되지 않을 것입니다. 반드시 `text/html; charset=utf-8`과 같이 UTF-8을 포함하도록 하세요.*
 
 다른 API와 마찬가지로 `addContentTypeParser`는 현재 스코프 내에서 캡슐화되어 있습니다.
