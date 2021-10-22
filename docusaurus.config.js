@@ -64,25 +64,7 @@ const config = {
       },
       footer: {
         style: 'dark',
-        links: [
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus'
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus'
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus'
-              }
-            ]
-          }
-        ],
+        links: [],
         copyright: `Copyright © ${new Date().getFullYear()} Fastify and Seia-Soto/Fastify-KR contributors. Built with Docusaurus.`
       },
       prism: {
