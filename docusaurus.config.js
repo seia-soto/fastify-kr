@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 const config = {
   title: 'Fastify; language=ko',
   tagline: 'Fastify는 여러분의 서버를 더욱 빠르게 바꿔줄 경량 Node.JS 서버입니다.',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://fastify-kr.seia.io',
   baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',

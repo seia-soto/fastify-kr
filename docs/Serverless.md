@@ -1,5 +1,3 @@
-<h1 align="center">Serverless</h1>
-
 Run serverless applications and REST APIs using your existing Fastify application.
 By default, Fastify will not work on your serverless platform of choice, you will need
 to make some small changes to fix this. This document contains a small guide for
