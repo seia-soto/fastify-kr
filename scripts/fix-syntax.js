@@ -49,7 +49,7 @@ const fix = (content = '') => {
       return `${p1} \`${p2}\``
     }) // cover headers
     .replace(/\[(.*)\]\(\)/ig, '$1') // unlink empty links
-    .replace(/(<a (?:name|id)="[\w-]+"><\/a.?>)\n?/igm, '$1\n') // add line break after manual link
+    .replace(/(<a (?:name|id)="[\w-]+"><\/a.?>)\n+/igm, '$1\n\n') // add line break after manual link
     .replace(/\<(?:br)\>/ig, '<br/>') // find unclosed things
     .replace(/\(\/docs\/([\w-]+\.md)\)/ig, '($1)') // /docs/* to *
     .replace(/\(\/([\w-]+\.md)\)/ig, '(https://github.com/fastify/fastify/blob/main/$1)') // /* to fastify/fastify/*
