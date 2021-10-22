@@ -40,7 +40,7 @@ const findAll = (root = path.join(process.cwd(), 'docs')) => {
  */
 const fix = (content = '') => {
   return content
-    .replace(/<h1 align="center">Fastify<\/h1>[^#]+#+\W[\.\w>< -]+/im, '') // replace useless headers
+    .replace(/<h1 align="center">\w+<\/h1>\n+(#+\W[\.\w>< -]+)?/im, '') // replace useless headers
     .replace(/(#+) +([\.\w>< -]+)/ig, (match, p1, p2) => {
       if (/[`]/.test(p2 + '') || !/[<>]/.test(p2 + '')) {
         return `${p1} ${p2}`
