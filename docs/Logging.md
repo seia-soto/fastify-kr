@@ -60,7 +60,6 @@ const fastify = require('fastify')({
 
 <a name="logging-request-id"></a>
 
-
 By default, Fastify adds an ID to every request for easier tracking. If the "request-id" header is present its value is used, otherwise a new incremental ID is generated. See Fastify Factory [`requestIdHeader`](Server.md#factory-request-id-header) and Fastify Factory [`genReqId`](Server.md#genreqid) for customization options.
 
 The default logger is configured with a set of standard serializers that serialize objects with `req`, `res`, and `err` properties. The object received by `req` is the Fastify [`Request`](Request.md) object, while the object received by `res` is the Fastify [`Reply`](Reply.md) object.
@@ -171,4 +170,4 @@ const fastify = Fastify({
 })
 ```
 
-See https://getpino.io/# docs/redaction for more details.
+See https://getpino.io/#/docs/redaction for more details.

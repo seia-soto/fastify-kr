@@ -1245,7 +1245,7 @@ Triggered when fastify.close() is invoked to stop the server. It is useful when 
 [FastifyInstance]: #fastifyfastifyinstance
 [FastifyLoggerOptions]: #fastifyfastifyloggeroptions
 [ContextConfigGeneric]: #ContextConfigGeneric
-[FastifyPlugin]: # fastifyfastifypluginoptions-rawserver-rawrequest-requestgeneric
+[FastifyPlugin]: ##fastifyfastifypluginoptions-rawserver-rawrequest-requestgeneric
 [FastifyPluginCallback]: #fastifyfastifyplugincallbackoptions
 [FastifyPluginAsync]: #fastifyfastifypluginasyncoptions
 [FastifyPluginOptions]: #fastifyfastifypluginoptions

@@ -1,7 +1,7 @@
 
 Fastify uses a schema-based approach, and even if it is not mandatory we recommend using [JSON Schema](https://json-schema.org/) to validate your routes and serialize your outputs. Internally, Fastify compiles the schema into a highly performant function.
 
-> #  ⚠  Security Notice
+> ## ⚠  Security Notice
 > Treat the schema definition as application code.
 > Validation and serialization features dynamically evaluate
 > code with `new Function()`, which is not safe to use with 
@@ -27,9 +27,9 @@ The shared schemas can be reused through the JSON Schema [**`$ref`**](https://to
 Here an overview of _how_ references work:
 
 + `myField: { $ref: '#foo'}` will search for field with `$id: '#foo'` inside the current schema
-+ `myField: { $ref: '# definitions/foo'}` will search for field `definitions.foo` inside the current schema
++ `myField: { $ref: '#/definitions/foo'}` will search for field `definitions.foo` inside the current schema
 + `myField: { $ref: 'http://url.com/sh.json#'}` will search for a shared schema added with `$id: 'http://url.com/sh.json'`
-+ `myField: { $ref: 'http://url.com/sh.json# definitions/foo'}` will search for a shared schema added with `$id: 'http://url.com/sh.json'` and will use the field `definitions.foo`
++ `myField: { $ref: 'http://url.com/sh.json#/definitions/foo'}` will search for a shared schema added with `$id: 'http://url.com/sh.json'` and will use the field `definitions.foo`
 + `myField: { $ref: 'http://url.com/sh.json#foo'}` will search for a shared schema added with `$id: 'http://url.com/sh.json'` and it will look inside of it for object with `$id: '#foo'`
 
 
@@ -49,7 +49,7 @@ fastify.post('/', {
   schema: {
     body: {
       type: 'array',
-      items: { $ref: 'http://example.com# properties/hello' }
+      items: { $ref: 'http://example.com#/properties/hello' }
     }
   }
 })
@@ -69,8 +69,8 @@ fastify.addSchema({
 fastify.post('/', {
   handler () {},
   schema: {
-    body: { $ref: 'commonSchema#  },
-    headers: { $ref: 'commonSchema#  }
+    body: { $ref: 'commonSchema#' },
+    headers: { $ref: 'commonSchema#' }
   }
 })
 ```
@@ -612,7 +612,7 @@ fastify.post('/', { schema, attachValidation: true }, function (req, reply) {
 })
 ```
 
-###  `schemaErrorFormatter`
+#### `schemaErrorFormatter`
 
 If you want to format errors yourself, you can provide a sync function that must return an error as the `schemaErrorFormatter` option to Fastify when instantiating.
 The context function will be the Fastify server instance.
@@ -782,8 +782,8 @@ const refToDefinitions = {
     }
   },
   properties: {
-    home: { $ref: '# definitions/foo' },
-    work: { $ref: '# definitions/foo' }
+    home: { $ref: '#/definitions/foo' },
+    work: { $ref: '#/definitions/foo' }
   }
 }
 ```
@@ -831,8 +831,8 @@ fastify.addSchema({
 const refToSharedSchemaDefinitions = {
   type: 'object',
   properties: {
-    home: { $ref: 'http://foo/shared.json# definitions/foo' },
-    work: { $ref: 'http://foo/shared.json# definitions/foo' }
+    home: { $ref: 'http://foo/shared.json#/definitions/foo' },
+    work: { $ref: 'http://foo/shared.json#/definitions/foo' }
   }
 }
 ```

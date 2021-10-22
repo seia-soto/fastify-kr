@@ -75,7 +75,7 @@ fastify.addSchema(commonSchemas)
 
 const bodyJsonSchema = S.object()
   .prop('residence', S.ref('https://fastify/demo#address')).required()
-  .prop('office', S.ref('https://fastify/demo# definitions/addressSchema')).required()
+  .prop('office', S.ref('https://fastify/demo#/definitions/addressSchema')).required()
 
 const schema = { body: bodyJsonSchema }
 

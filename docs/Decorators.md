@@ -53,10 +53,10 @@ fastify.get('/', (req, reply) => {
 [JavaScript engine fundamentals: Shapes and Inline Caches](https://mathiasbynens.be/notes/shapes-ics)
 를 확인해보세요.
 
-##  사용법
+## 사용법
 <a name="usage"></a>
 
-###  `decorate(name, value, [dependencies])`
+### `decorate(name, value, [dependencies])`
 <a name="decorate"></a>
 
 이 메서드는 Fastify [서버](Server.md) 인스턴스를 수정하는데 사용됩니다.
@@ -148,7 +148,7 @@ module.exports = fp(myPlugin)
 
 `depedencies` 파라메터에 관련한 더 많은 정보는 [`decorate`](#decorate)를 참조하세요.
 
-###  `decorateRequest(name, value, [dependencies])`
+### `decorateRequest(name, value, [dependencies])`
 <a name="decorate-request"></a>
 
 위의 [`decorateReply`](#decorate-reply)와 같이, 이 API는 새로운 메서드나 속성을 핵심 `Request` 객체에 추가하는데에 쓰입니다:
@@ -215,7 +215,7 @@ Reply에 꾸며진 속성이 있는지 확인하는데 사용됩니다:
 fastify.hasReplyDecorator('utility')
 ```
 
-##  데코레이터와 캡슐화
+## 데코레이터와 캡슐화
 <a name="decorators-encapsulation"></a>
 
 (`decorate`, `decorateRequest`, 혹은 `decorateReply`를 사용하여) 같은 이름의 데코레이터를 한 번 이상 같은 **캡슐화** 범위에서 정의하는 것은 예외를 발생시킵니다.

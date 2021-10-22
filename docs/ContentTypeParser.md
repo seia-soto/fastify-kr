@@ -11,7 +11,7 @@
 
 Fastify는 자동으로 파싱된 요청 본문을 [Fastify request](Request.md) object에 `request.body`로 접근할 수 있도록 추가해줍니다.
 
-##  사용법
+## 사용법
 ```js
 fastify.addContentTypeParser('application/jsoff', function (request, payload, done) {
   jsoffParser(payload, function (err, body) {
@@ -134,7 +134,7 @@ fastify.addContentTypeParser('application/json', { parseAs: 'string' }, function
 
 [`example/parser.js`](../examples/parser.js)를 예시로 보세요.
 
-###  커스텀 파서 옵션
+### 커스텀 파서 옵션
 + `parseAs` (string): `'string'`과 `'buffer'` 모두 들어오는 데이터가 어떻게 수집되어야 할지 가리킵니다. 기본값: `'buffer'`.
 + `bodyLimit` (number): 커스텀 파서가 허용하는 최대 본문 크기, 바이트로 작성해주세요. [`Fastify factory function`](Server.md#body-limit)에 전달된 전역 본문 크기 제한이 기본값입니다.
 

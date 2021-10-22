@@ -1,4 +1,6 @@
+<a name="lts"></a>
 
+## Long Term Support
 
 Fastify's Long Term Support (LTS) is provided according to the schedule laid
 out in this document:
@@ -39,7 +41,6 @@ A "month" is defined as 30 consecutive days.
 
 <a name="lts-schedule"></a>
 
-
 ### Schedule
 
 | Version | Release Date | End Of LTS Date | Node.js              |
@@ -49,7 +50,6 @@ A "month" is defined as 30 consecutive days.
 | 3.0.0   | 2020-07-07   | TBD             | 10, 12, 14, 16       |
 
 <a name="supported-os"></a>
-
 
 ### CI tested operating systems
 

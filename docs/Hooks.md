@@ -461,7 +461,6 @@ Warn: if you declare the function with an [arrow function](https://developer.moz
 
 <a name="route-hooks"></a>
 
-
 ## Route level hooks
 You can declare one or more custom lifecycle hooks ([onRequest](#onrequest), [onResponse](#onresponse), [preParsing](#preparsing), [preValidation](#prevalidation), [preHandler](#prehandler), [preSerialization](#preserialization), [onSend](#onsend), [onTimeout](#ontimeout), and [onError](#onerror)) hook(s) that will be **unique** for the route.
 If you do so, those hooks are always executed as the last hook in their category. <br/>

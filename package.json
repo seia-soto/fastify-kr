@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "docs:update": "git fetch upstream && git checkout upstream/main -- docs",
+    "docs:update": "git fetch upstream && git checkout upstream/main -- docs && node scripts/fix-syntax",
+    "docs:fix": "node scripts/fix-syntax",
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "node scripts/fix-syntax && docusaurus build",
+    "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",

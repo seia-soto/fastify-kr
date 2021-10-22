@@ -453,7 +453,7 @@ fastify.inject({
 })
 ```
 
-> #  ⚠  Security Notice
+> ## ⚠  Security Notice
 > Remember to set a [`Vary`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Vary) header in your
 > responses with the value you are using for defining the versioning (e.g.: `'Accept-Version'`),
 > to prevent cache poisoning attacks. You can also configure this as part of your Proxy/CDN.

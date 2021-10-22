@@ -1,33 +1,42 @@
-# Website
+# Fastify-KR
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
+Fastify-KR은 docusaurus로 만들어진 비공식 Fastify 한국어 웹 사이트입니다.
 
-### Installation
+> Fastify-KR is unofficial Korean Fastify website built with docusaurus.
 
-```
-$ yarn
-```
+## Contributing
 
-### Local Development
+Fastify-KR에 기여하는 방법은 여러가지가 있습니다.
 
-```
-$ yarn start
-```
+### Translations
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+번역은 2단계로 진행됩니다.
 
-### Build
+#### Stage 1
 
-```
-$ yarn build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-### Deployment
+Stage 1은 Fastify 공식 레포지토리에서 새로운 릴리즈가 발생했을 때의 상황입니다.
+시작하려면 먼저 이 레포지토리를 로컬에 클론한 뒤에 `github:fastify/fastify`를 `upstream` 원격 레포지토리로 설정해야 합니다.
 
 ```
-$ GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
+git remote add upstream https://github.com/fastify/fastify
 ```
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+그리고 문서를 다운로드합니다.
+
+> **중요!**
+> 아래 명령어는 새 번역이 있을 때에만 실행해주세요. 기존 번역을 덮어씌울 것입니다.
+
+```
+yarn docs:update
+```
+
+#### Stage 2
+
+Stage 2는 이미 Stage 1을 거쳤으므로 기존 번역을 사용가능한 상태라고 볼 수 있습니다.
+Fastify의 기존 문서들은 Docusaurus가 사용하는 MDX와 호환되지 않기 때문에 명령어를 실행하여 먼저 이를 고쳐야 합니다.
+
+```
+yarn docs:fix
+```
+
+이제 번역을 시작하면 됩니다!

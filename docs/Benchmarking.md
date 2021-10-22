@@ -7,14 +7,14 @@
 - [Concurrently](https://github.com/kimmobrunfeldt/concurrently): 동시 여러 명령어를 실행시킵니다.
 - [Npx](https://github.com/npm/npx): npm@5.2.0와 함께 제공된 Node.JS 버전과 상관없이 로컬의 Node.JS로 스크립트를 실행시킬 수 있는 NPM 패키지 실행기입니다.
 
-##  간단히
+## 간단히
 
-###  현재 브랜치에서 벤치마크 실행
+### 현재 브랜치에서 벤치마크 실행
 ```sh
 npm run benchmark
 ```
 
-###  다른 Node.JS 버전에서 벤치마크 실행 ✨
+### 다른 Node.JS 버전에서 벤치마크 실행 ✨
 ```sh
 npx -p node@10 -- npm run benchmark
 ```
