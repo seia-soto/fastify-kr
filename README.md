@@ -30,13 +30,14 @@ git remote add upstream https://github.com/fastify/fastify
 yarn docs:update
 ```
 
-#### Stage 2
-
-Stage 2는 이미 Stage 1을 거쳤으므로 기존 번역을 사용가능한 상태라고 볼 수 있습니다.
 Fastify의 기존 문서들은 Docusaurus가 사용하는 MDX와 호환되지 않기 때문에 명령어를 실행하여 먼저 이를 고쳐야 합니다.
 
 ```
 yarn docs:fix
 ```
 
-이제 번역을 시작하면 됩니다!
+#### Stage 2
+
+Stage 2는 이미 Stage 1을 거쳤으므로 기존 번역을 사용가능한 상태라고 볼 수 있습니다.
+
+별다른 과정없이 번역을 시작하면 됩니다!
