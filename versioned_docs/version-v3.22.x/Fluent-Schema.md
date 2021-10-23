@@ -49,7 +49,7 @@ fastify.post('/the/url', { schema }, handler)
 
 ### 재사용
 
-`fleunt-json-schema`와 함께라면 스키마를 더욱 더 쉽고 프로그래맹적으로 조작하고 `addSchema()` 메서드를 사용하여 재사용할 수 있습니다.
+`fleunt-json-schema`와 함께라면 스키마를 더욱 더 쉽고 프로그래밍적으로 조작하고 `addSchema()` 메서드를 사용하여 재사용할 수 있습니다.
 또 동시에 이 스키마를 2개의 방식으로 참조할 수도 있습니다.
 자세히는 [검증과 직렬화](Validation-and-Serialization.md#adding-a-shared-schema) 문서에 나와있습니다.
 
