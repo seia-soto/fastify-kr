@@ -52,7 +52,7 @@ const fix = (content = '', filename = '') => {
         firstTitle === filenameNormalized ||
         firstTitleShorthanded === filenameNormalized // match shorthand words like LTS
       ) {
-        return `# ${p2}` // this will make p2 as title as document
+        return `# ${p2.replace(/[`]/g, '')}` // this will make p2 as title as document
       }
 
       return `${p1} ${p2}`
