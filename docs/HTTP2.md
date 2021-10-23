@@ -1,3 +1,5 @@
+# HTTP2
+
 _Fastify_ offers **experimental support** for HTTP2 starting from 
 Node 8 LTS, which includes HTTP2 without a flag; HTTP2 is supported 
 over either HTTPS or plaintext.
@@ -88,4 +90,3 @@ You can test your new server with:
 ```
 $ npx h2url http://localhost:3000
 ```
-

@@ -1,6 +1,4 @@
-<a id="encapsulation"></a>
-
-## Encapsulation
+# Encapsulation
 
 A fundamental feature of Fastify is the "encapsulation context." The
 encapsulation context governs which [decorators](./Decorators.md), registered

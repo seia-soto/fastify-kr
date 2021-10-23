@@ -1,3 +1,5 @@
+# Ecosystem
+
 Plugins maintained by the Fastify team are listed under [Core](#core) while plugins maintained by the community are listed in the [Community](#community) section.
 
 #### [Core](#core)

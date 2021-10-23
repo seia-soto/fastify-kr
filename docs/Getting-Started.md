@@ -1,3 +1,4 @@
+# Getting Started
 Hello! Thank you for checking out Fastify!<br/>
 This document aims to be a gentle introduction to the framework and its features. It is an elementary preface with examples and links to other parts of the documentation.<br/>
 Let's start!

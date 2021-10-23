@@ -1,3 +1,5 @@
+# Decorators
+
 The decorators API allows customization of the core Fastify objects, such as
 the server instance itself and any request and reply objects used during the
 HTTP request lifecycle. The decorators API can be used to attach any type of

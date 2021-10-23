@@ -1,5 +1,3 @@
-<a name="factory"></a>
-
 ## Factory
 
 The Fastify module exports a factory function that is used to create new

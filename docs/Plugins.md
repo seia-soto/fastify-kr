@@ -1,3 +1,4 @@
+# Plugins
 Fastify allows the user to extend its functionalities with plugins.
 A plugin can be a set of routes, a server [decorator](Decorators.md), or whatever. The API that you will need to use one or more plugins, is `register`.<br/>
 

@@ -1,3 +1,5 @@
+# Logging
+
 Logging is disabled by default, and you can enable it by passing
 `{ logger: true }` or `{ logger: { level: 'info' } }` when you create
 a fastify instance. Note that if the logger is disabled, it is impossible to

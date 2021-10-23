@@ -24,7 +24,7 @@ const findAll = (root = path.join(process.cwd(), 'docs')) => {
 
     if (isDir(file)) {
       results.push(...findAll(file))
-    } else {
+    } else if (file.endsWith('.md')) { // filter markdown files
       results.push(file)
     }
   }
@@ -41,6 +41,22 @@ const findAll = (root = path.join(process.cwd(), 'docs')) => {
  */
 const fix = (content = '', filename = '') => {
   return content
+    .trim()
+    .replace(/<h1 align="center">\w+<\/h1>\n+/im, '') // replace useless 'h1' headers
+    .replace(/^(?:[\n]?<\w+ \w+="[\w-]+">[^\n]*<\/\w+[^\n]?>\n+)?(#+) +([^\n]+\n+)/i, (match, p1, p2) => {
+      const firstTitle = p2.trim().replace(/\W/g, '').toLowerCase() // normalize title to match with filename
+      const firstTitleShorthanded = p2.trim().split(' ').map(word => word.split('').shift()).join('').toLowerCase()
+      const filenameNormalized = filename.replace(/\W/g, '').toLowerCase()
+
+      if (
+        firstTitle === filenameNormalized ||
+        firstTitleShorthanded === filenameNormalized // match shorthand words like LTS
+      ) {
+        return `# ${p2}` // this will make p2 as title as document
+      }
+
+      return `${p1} ${p2}`
+    }) // remove first title with a tag
     .replace(/(#+) +([^\n]+)/ig, (match, p1, p2) => {
       if (/[`]/.test(p2 + '') || !/[<>]/.test(p2 + '')) {
         return `${p1} ${p2}`
@@ -48,17 +64,6 @@ const fix = (content = '', filename = '') => {
 
       return `${p1} \`${p2}\``
     }) // cover headers
-    .replace(/^[\n]?<\w+ \w+="[\w-]+">[^\n]*<\/\w+[^\n]?>\n+(#+) +([^\n]+\n+)/i, (match, p1, p2) => {
-      const firstTitle = p2.trim().replace(/\W/g, '').toLowerCase() // normalize title to match with filename
-      const filenameNormalized = filename.replace(/\W/g, '').toLowerCase()
-
-      if (firstTitle === filenameNormalized) {
-        return ''
-      }
-
-      return `${p1} ${p2}`
-    }) // remove first title with a tag
-    .replace(/<h1 align="center">\w+<\/h1>\n+(?:#+\W[^\n]+)?/im, '') // replace useless headers
     .replace(/\[(.*)\]\(\)/ig, '$1') // unlink empty links
     .replace(/(<a (?:name|id)="[\w-]+"><\/a.?>)\n+/igm, '$1\n\n') // add line break after manual link
     .replace(/\<(?:br)\>/ig, '<br/>') // find unclosed things

@@ -1,6 +1,4 @@
-<a id="errors"></a>
-
-## Errors
+# Errors
 
 <a name="error-handling"></a>
 
