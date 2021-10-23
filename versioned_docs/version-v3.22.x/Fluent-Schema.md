@@ -1,15 +1,15 @@
 # Fluent 스키마
 
-The [Validation and Serialization](Validation-and-Serialization.md) documentation outlines all parameters accepted by Fastify to set up JSON Schema Validation to validate the input, and JSON Schema Serialization to optimize the output.
+[검증과 직렬화](Validation-and-Serialization.md) 문서는 입력을 검증하고 출력을 효율적으로 하기 위해 JSON 스키마 검증과 직렬화를 설정하도록 Fastify가 허락하는 모든 파라메터를 언급합니다.
 
-[`fluent-json-schema`](https://github.com/fastify/fluent-json-schema) can be used to simplify this task while allowing the reuse of constants.
+[`fluent-json-schema`](https://github.com/fastify/fluent-json-schema)는 이런 과정을 상수의 재사용을 가능케하여 단순히 합니다.
 
-### Basic settings
+### 기본 설정
 
 ```js
 const S = require('fluent-json-schema')
 
-// You can have an object like this, or query a DB to get the values
+// DB를 쿼리하여 다음과 같은 값들을 가져올 수 있는 다음과 같은 객체가 있다고 합시다
 const MY_KEYS = {
   KEY1: 'ONE',
   KEY2: 'TWO'
@@ -36,10 +36,10 @@ const paramsJsonSchema = S.object()
 const headersJsonSchema = S.object()
   .prop('x-foo', S.string().required())
 
-// Note that there is no need to call `.valueOf()`!
+// `.valueOf()`를 호출할 필요가 없음을 명심하세요!
 const schema = {
   body: bodyJsonSchema,
-  querystring: queryStringJsonSchema, // (or) query: queryStringJsonSchema
+  querystring: queryStringJsonSchema, // (혹은) query: queryStringJsonSchema
   params: paramsJsonSchema,
   headers: headersJsonSchema
 }
@@ -47,15 +47,15 @@ const schema = {
 fastify.post('/the/url', { schema }, handler)
 ```
 
-### Reuse
+### 재사용
 
-With `fluent-json-schema` you can manipulate your schemas more easily and programmatically and then reuse them
-thanks to the `addSchema()` method. You can refer to the schema in two different manners that are detailed
-in the [Validation-and-Serialization.md](Validation-and-Serialization.md#adding-a-shared-schema) documentation.
+`fleunt-json-schema`와 함께라면 스키마를 더욱 더 쉽고 프로그래맹적으로 조작하고 `addSchema()` 메서드를 사용하여 재사용할 수 있습니다.
+또 동시에 이 스키마를 2개의 방식으로 참조할 수도 있습니다.
+자세히는 [검증과 직렬화](Validation-and-Serialization.md#adding-a-shared-schema) 문서에 나와있습니다.
 
-Here are some usage examples:
+여기에 몇 가지 사용 예가 있습니다:
 
-**`$ref-way`**: refer to an external schema.
+**`$ref-방식`**: 외부 스키마로 참조.
 
 ```js
 const addressSchema = S.object()
@@ -69,7 +69,7 @@ const addressSchema = S.object()
 const commonSchemas = S.object()
   .id('https://fastify/demo')
   .definition('addressSchema', addressSchema)
-  .definition('otherSchema', otherSchema) // You can add any schemas you need
+  .definition('otherSchema', otherSchema) // 필요한 그 어떤 스키마라도 추가하세요
 
 fastify.addSchema(commonSchemas)
 
@@ -82,8 +82,7 @@ const schema = { body: bodyJsonSchema }
 fastify.post('/the/url', { schema }, handler)
 ```
 
-
-**`replace-way`**: refer to a shared schema to replace before the validation process.
+**`replace-방식`**: 검증 절차 전에 공유된 스키마를 참조하여 교체합니다.
 
 ```js
 const sharedAddressSchema = {
@@ -112,4 +111,4 @@ const schema = { body: bodyJsonSchema }
 fastify.post('/the/url', { schema }, handler)
 ```
 
-NB You can mix up the `$ref-way` and the `replace-way` when using `fastify.addSchema`.
+`fastify.addSchema`를 사용할 때에는 `$ref-방식`과 `replace-방식` 모두 섞어 사용할 수 있습니다.
