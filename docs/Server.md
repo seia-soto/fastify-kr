@@ -1,3 +1,7 @@
+<a name="factory"></a>
+
+## Factory
+
 The Fastify module exports a factory function that is used to create new
 <code><b>Fastify server</b></code> instances. This factory function accepts
 an options object which is used to customize the resulting instance. This

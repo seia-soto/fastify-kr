@@ -1,39 +1,39 @@
-Fastify 팀에서 관리되는 플러그인들은 [Core](#core) 아래에 정리되었으며 커뮤니티에 의해 관리되는 플러그인들은 [Community](#community) 쪽에 정리했습니다.
+Plugins maintained by the Fastify team are listed under [Core](#core) while plugins maintained by the community are listed in the [Community](#community) section.
 
-###  [Core](#core)
+#### [Core](#core)
 
-- [`fastify-accepts`](https://github.com/fastify/fastify-accepts)는 요청 객체에 [accepts](https://www.npmjs.com/package/accepts)를 지원하도록 합니다.
-- [`fastify-accepts-serializer`](https://github.com/fastify/fastify-accepts-serializer)는 `Accept` 헤더에 따라 응답을 직렬화합니다.
-- [`fastify-auth`](https://github.com/fastify/fastify-auth)는 Fastify에서 여러 인증 계층을 실행합니다.
-- [`fastify-autoload`](https://github.com/fastify/fastify-autoload)는 디렉터리의 모든 플러그인을 포함합니다.
-- [`fastify-awilix`](https://github.com/fastify/fastify-awilix)는 [awilix](https://github.com/jeffijoe/awilix)에 기반한 의존성 주입을 지원합니다.
-- [`fastify-bankai`](https://github.com/fastify/fastify-bankai)는 Fastify를 위한 [Bankai](https://github.com/yoshuawuyts/bankai) 에셋 컴파일러입니다.
-- [`fastify-basic-auth`](https://github.com/fastify/fastify-basic-auth)는 Fastify를 위한 기본 인증 플러그인입니다.
-- [`fastify-bearer-auth`](https://github.com/fastify/fastify-bearer-auth)는 Fastify를 위한 베어러 인증 플러그인입니다.
-- [`fastify-caching`](https://github.com/fastify/fastify-caching)는 범용 서버 측 캐시와 ETag 지원을 추가합니다.
-- [`fastify-circuit-breaker`](https://github.com/fastify/fastify-circuit-breaker)는 적은 오버헤드의 라우팅별 회로 차단기입니다.
-- [`fastify-compress`](https://github.com/fastify/fastify-compress)는 Fastify 압축 유틸리티입니다.
-- [`fastify-cookie`](https://github.com/fastify/fastify-cookie)는 쿠키 헤더를 파싱하고 설정합니다.
-- [`fastify-cors`](https://github.com/fastify/fastify-cors)는 Fastify에서 CORS 사용을 활성화합니다.
-- [`fastify-csrf`](https://github.com/fastify/fastify-csrf)는 Fastify에 [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) 지원을 추가합니다.
-- [`fastify-diagnostics-channel`](https://github.com/fastify/fastify-diagnostics-channel)는 `diagnostics_channel`를 Fastify와 함께 사용하기 위한 플러그인입니다.
-- [`fastify-elasticsearch`](https://github.com/fastify/fastify-elasticsearch)는 같은 ElasticSearch 클라이언트를 공유하기 위한 플러그인입니다.
-- [`fastify-env`](https://github.com/fastify/fastify-env)는 설정을 확인하고 가져옵니다.
-- [`fastify-etag`](https://github.com/fastify/fastify-etag)는 HTTP 응답에 대한 ETag를 자동으로 생성합니다.
-- [`fastify-flash`](https://github.com/fastify/fastify-flash)는 세션을 사용해 플래시 메세지를 설정하고 가져옵니다.
-- [`fastify-formbody`](https://github.com/fastify/fastify-formbody)는 x-www-form-urlencoded 요청 본문을 해석합니다.
-- [`fastify-funky`](https://github.com/fastify/fastify-funky)는 Fastify에서의 함수형 프로그래밍을 조금 더 편하게 만듭니다. 그리고 Fastify 라우팅이 Either, Task, 순수한 파라메터가 없는 함수를 반환하도록 합니다.
-- [`fastify-helmet`](https://github.com/fastify/fastify-helmet)은 Fastify에 중요한 보안 헤더를 추가해줍니다.
-- [`fastify-http-proxy`](https://github.com/fastify/fastify-http-proxy)는 HTTP 요청들을 다른 서버로 훅과 함께 프록시할 수 있게 해줍니다.
-- [`fastify-jwt`](https://github.com/fastify/fastify-jwt)는 [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)를 내부적으로 사용하는 Fastify의 JWT 유틸리티입니다.
-- [`fastify-leveldb`](https://github.com/fastify/fastify-leveldb)는 LevelDB 연결을 Fastify에서 공유하기 위한 플러그인입니다.
-- [`fastify-mongodb`](https://github.com/fastify/fastify-mongodb)는 MongoDB 커넥션 풀을 Fastify에서 공유할 수 있는 Fastify MongoDB 커넥션 플러그인입니다.
-- [`fastify-multipart`](https://github.com/fastify/fastify-multipart)는 Fastify에 multipart 지원을 추가합니다.
-- [`fastify-oauth2`](https://github.com/fastify/fastify-oauth2)는 [`simple-oauth2`](https://github.com/lelylan/simple-oauth2) 래퍼입니다.
-- [`fastify-postgres`](https://github.com/fastify/fastify-postgres)는 Fastify에서 같은 Postgres 커넥션 풀을 공유하기 위한 플러그인입니다.
-- [`fastify-rate-limit`](https://github.com/fastify/fastify-rate-limit)은 적은 오버헤드로 라우팅별 rate limit을 설정해줍니다.
-- [`fastify-request-context`](https://github.com/fastify/fastify-request-context)는 thread-local 스토리지와 유사한 [AsyncLocalStorage](https://nodejs.org/api/async_hooks.html#async_hooks_class_asynclocalstorage) (없다면 [cls-hooked](https://github.com/Jeff-Lewis/cls-hooked))에 기반한 요청 스토리지 플러그인입니다.
-- [`fastify-response-validation`](https://github.com/fastify/fastify-response-validation)은 Fastify에서 응답 검증을 활성화하는 플러그인입니다.
+- [`fastify-accepts`](https://github.com/fastify/fastify-accepts) to have [accepts](https://www.npmjs.com/package/accepts) in your request object.
+- [`fastify-accepts-serializer`](https://github.com/fastify/fastify-accepts-serializer) to serialize to output according to `Accept` header.
+- [`fastify-auth`](https://github.com/fastify/fastify-auth) Run multiple auth functions in Fastify.
+- [`fastify-autoload`](https://github.com/fastify/fastify-autoload) Require all plugins in a directory.
+- [`fastify-awilix`](https://github.com/fastify/fastify-awilix) Dependency injection support for Fastify, based on [awilix](https://github.com/jeffijoe/awilix).
+- [`fastify-bankai`](https://github.com/fastify/fastify-bankai) [Bankai](https://github.com/yoshuawuyts/bankai) assets compiler for Fastify.
+- [`fastify-basic-auth`](https://github.com/fastify/fastify-basic-auth) Basic auth plugin for Fastify.
+- [`fastify-bearer-auth`](https://github.com/fastify/fastify-bearer-auth) Bearer auth plugin for Fastify.
+- [`fastify-caching`](https://github.com/fastify/fastify-caching) General server-side cache and ETag support.
+- [`fastify-circuit-breaker`](https://github.com/fastify/fastify-circuit-breaker) A low overhead circuit breaker for your routes.
+- [`fastify-compress`](https://github.com/fastify/fastify-compress) Fastify compression utils.
+- [`fastify-cookie`](https://github.com/fastify/fastify-cookie) Parse and set cookie headers.
+- [`fastify-cors`](https://github.com/fastify/fastify-cors) Enables the use of CORS in a Fastify application.
+- [`fastify-csrf`](https://github.com/fastify/fastify-csrf) A plugin for adding [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) protection to Fastify.
+- [`fastify-diagnostics-channel`](https://github.com/fastify/fastify-diagnostics-channel) Plugin to deal with `diagnostics_channel` on Fastify
+- [`fastify-elasticsearch`](https://github.com/fastify/fastify-elasticsearch) Plugin to share the same ES client.
+- [`fastify-env`](https://github.com/fastify/fastify-env) Load and check configuration.
+- [`fastify-etag`](https://github.com/fastify/fastify-etag) Automatically generate ETags for HTTP responses.
+- [`fastify-flash`](https://github.com/fastify/fastify-flash) Set and get flash messages using the session.
+- [`fastify-formbody`](https://github.com/fastify/fastify-formbody) Plugin to parse x-www-form-urlencoded bodies.
+- [`fastify-funky`](https://github.com/fastify/fastify-funky) Makes functional programming in Fastify more convenient. Adds support for Fastify routes returning functional structures, such as Either, Task or plain parameterless function.
+- [`fastify-helmet`](https://github.com/fastify/fastify-helmet) Important security headers for Fastify.
+- [`fastify-http-proxy`](https://github.com/fastify/fastify-http-proxy) Proxy your HTTP requests to another server, with hooks.
+- [`fastify-jwt`](https://github.com/fastify/fastify-jwt) JWT utils for Fastify, internally uses [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken).
+- [`fastify-leveldb`](https://github.com/fastify/fastify-leveldb) Plugin to share a common LevelDB connection across Fastify.
+- [`fastify-mongodb`](https://github.com/fastify/fastify-mongodb) Fastify MongoDB connection plugin, with which you can share the same MongoDB connection pool across every part of your server.
+- [`fastify-multipart`](https://github.com/fastify/fastify-multipart) Multipart support for Fastify.
+- [`fastify-oauth2`](https://github.com/fastify/fastify-oauth2) Wrap around [`simple-oauth2`](https://github.com/lelylan/simple-oauth2).
+- [`fastify-postgres`](https://github.com/fastify/fastify-postgres) Fastify PostgreSQL connection plugin, with this you can share the same PostgreSQL connection pool in every part of your server.
+- [`fastify-rate-limit`](https://github.com/fastify/fastify-rate-limit) A low overhead rate limiter for your routes.
+- [`fastify-request-context`](https://github.com/fastify/fastify-request-context) Request-scoped storage, based on [AsyncLocalStorage](https://nodejs.org/api/async_hooks.html#async_hooks_class_asynclocalstorage) (with fallback to [cls-hooked](https://github.com/Jeff-Lewis/cls-hooked)), providing functionality similar to thread-local storages.
+- [`fastify-response-validation`](https://github.com/fastify/fastify-response-validation) A simple plugin that enables response validation for Fastify.
 - [`fastify-nextjs`](https://github.com/fastify/fastify-nextjs) React server-side rendering support for Fastify with [Next](https://github.com/zeit/next.js/).
 - [`fastify-redis`](https://github.com/fastify/fastify-redis) Fastify Redis connection plugin, with which you can share the same Redis connection across every part of your server.
 - [`fastify-reply-from`](https://github.com/fastify/fastify-reply-from) Plugin to forward the current HTTP request to another server.
@@ -48,7 +48,7 @@ Fastify 팀에서 관리되는 플러그인들은 [Core](#core) 아래에 정리
 - [`point-of-view`](https://github.com/fastify/point-of-view) Templates rendering (_ejs, pug, handlebars, marko_) plugin support for Fastify.
 - [`under-pressure`](https://github.com/fastify/under-pressure) Measure process load with automatic handling of _"Service Unavailable"_ plugin for Fastify.
 
-###  [Community](#community)
+#### [Community](#community)
 
 - [`@applicazza/fastify-nextjs`](https://github.com/applicazza/fastify-nextjs) Alternate Fastify and Next.js integration.
 - [`@coobaha/typed-fastify`](https://github.com/Coobaha/typed-fastify) Strongly typed routes with a runtime validation using JSON schema generated from types.
@@ -135,7 +135,7 @@ Fastify 팀에서 관리되는 플러그인들은 [Core](#core) 아래에 정리
 - [`fastify-mongo-memory`](https://github.com/chapuletta/fastify-mongo-memory) Fastify MongoDB in Memory Plugin for testing support.
 - [`fastify-mongoose-api`](https://github.com/jeka-kiselyov/fastify-mongoose-api) Fastify plugin to create REST API methods based on Mongoose MongoDB models.
 - [`fastify-mongoose-driver`](https://github.com/alex-ppg/fastify-mongoose) Fastify Mongoose plugin that connects to a MongoDB via the Mongoose plugin with support for Models.
-- [`fastify-msgpack`](https://github.com/kenriortega/fastify-msgpack) Fastify and MessagePack, together at last. Uses @msgpack/msgpack by default.
+- [`fastify-msgpack`](https://github.com/kenriortega/fastify-msgpack) Fastify and MessagePack, together at last. Uses @msgpack/msgpack by default. 
 - [`fastify-multer`](https://github.com/fox1t/fastify-multer) Multer is a plugin for handling multipart/form-data, which is primarily used for uploading files.
 - [`fastify-nats`](https://github.com/mahmed8003/fastify-nats) Plugin to share [NATS](https://nats.io) client across Fastify.
 - [`fastify-no-additional-properties`](https://github.com/greguz/fastify-no-additional-properties) Add `additionalProperties: false` by default to your JSON Schemas.
@@ -157,7 +157,7 @@ Fastify 팀에서 관리되는 플러그인들은 [Core](#core) 아래에 정리
 - [`fastify-postgraphile`](https://github.com/alemagio/fastify-postgraphile) Plugin to integrate [PostGraphile](https://www.graphile.org/postgraphile/) in a Fastify project.
 - [`fastify-prettier`](https://github.com/hsynlms/fastify-prettier) A Fastify plugin that uses [prettier](https://github.com/prettier/prettier) under the hood to beautify outgoing responses and/or other things in the Fastify server.
 - [`fastify-print-routes`](https://github.com/ShogunPanda/fastify-print-routes) A Fastify plugin that prints all available routes.
-- [`fastify-protobufjs`](https://github.com/kenriortega/fastify-protobufjs) Fastify and protobufjs, together at last. Uses protobufjs by default.
+- [`fastify-protobufjs`](https://github.com/kenriortega/fastify-protobufjs) Fastify and protobufjs, together at last. Uses protobufjs by default. 
 - [`fastify-qrcode`](https://github.com/chonla/fastify-qrcode) This plugin utilizes [qrcode](https://github.com/soldair/node-qrcode) to generate QR Code.
 - [`fastify-qs`](https://github.com/webdevium/fastify-qs) A plugin for Fastify that adds support for parsing URL query parameters with [qs](https://github.com/ljharb/qs).
 - [`fastify-raw-body`](https://github.com/Eomm/fastify-raw-body) Add the `request.rawBody` field.

@@ -1,5 +1,3 @@
-
-
 The routes methods will configure the endpoints of your application.
 You have two ways to declare a route with Fastify, the shorthand method and the full declaration.
 

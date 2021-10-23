@@ -1,3 +1,7 @@
+<a name="lts"></a>
+
+## Long Term Support
+
 Fastify's Long Term Support (LTS) is provided according to the schedule laid
 out in this document:
 

@@ -1,5 +1,3 @@
-
-
 The Fastify framework is written in vanilla JavaScript, and as such type definitions are not as easy to maintain; however, since version 2 and beyond, maintainers and contributors have put in a great effort to improve the types.
 
 The type system was changed in Fastify version 3. The new type system introduces generic constraining and defaulting, plus a new way to define schema types such as a request body, querystring, and more! As the team works on improving framework and type definition synergy, sometimes parts of the API will not be typed or may be typed incorrectly. We encourage you to **contribute** to help us fill in the gaps. Just make sure to read our [`CONTRIBUTING.md`](https://github.com/fastify/fastify/blob/HEAD/CONTRIBUTING.md) file before getting started to make sure things go smoothly!
@@ -657,7 +655,7 @@ Constraints: `string | Buffer`
 
 #### Fastify
 
-##### `fastify<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [Logger][LoggerGeneric]>(opts?: [FastifyServerOptions][FastifyServerOptions]): [FastifyInstance][FastifyInstance]
+##### `fastify<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [Logger][LoggerGeneric]>(opts?: [FastifyServerOptions][FastifyServerOptions]): [FastifyInstance][FastifyInstance]`
 [src](./../fastify.d.ts#L19)
 
 The main Fastify API method. By default creates an HTTP server. Utilizing discriminant unions and overload methods, the type system will automatically infer which type of server (http, https, or http2) is being created purely based on the options based to the method (see the examples below for more information). It also supports an extensive generic type system to allow the user to extend the underlying Node.js Server, Request, and Reply objects. Additionally, the `Logger` generic exists for custom log types. See the examples and generic breakdown below for more information.
@@ -784,7 +782,7 @@ Type alias for `http.Server`
 
 ---
 
-##### `fastify.FastifyServerOptions<`[RawServer][RawServerGeneric], [Logger][LoggerGeneric]>
+##### `fastify.FastifyServerOptions<[RawServer][RawServerGeneric], [Logger][LoggerGeneric]>`
 
 [src](../fastify.d.ts#L29)
 
@@ -792,7 +790,7 @@ An interface of properties used in the instantiation of the Fastify server. Is u
 
 See the main [fastify][Fastify] method type definition section for examples on instantiating a Fastify server with TypeScript.
 
-##### `fastify.FastifyInstance<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RequestGeneric][FastifyRequestGenericInterface], [Logger][LoggerGeneric]>
+##### `fastify.FastifyInstance<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RequestGeneric][FastifyRequestGenericInterface], [Logger][LoggerGeneric]>`
 
 [src](../types/instance.d.ts#L16)
 
@@ -806,7 +804,7 @@ Check out the main [Learn by Example](#learn-by-example) section for detailed gu
 
 #### Request
 
-##### `fastify.FastifyRequest<`[RequestGeneric][FastifyRequestGenericInterface], [RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric]>
+##### `fastify.FastifyRequest<[RequestGeneric][FastifyRequestGenericInterface], [RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric]>`
 [src](./../types/request.d.ts#L15)
 
 This interface contains properties of Fastify request object. The properties added here disregard what kind of request object (http vs http2) and disregard what route level it is serving; thus calling `request.body` inside a GET request will not throw an error (but good luck sending a GET request with a body 😉).
@@ -869,7 +867,7 @@ server.get<requestGeneric>('/', async (request, reply) => {
 
 If you want to see a detailed example of using this interface check out the Learn by Example section: [JSON Schema](#jsonschema).
 
-##### fastify.RawRequestDefaultExpression\<[RawServer][RawServerGeneric]\>
+##### `fastify.RawRequestDefaultExpression\<[RawServer][RawServerGeneric]\>`
 [src](./../types/utils.d.ts#L23)
 
 Dependant on `@types/node` modules `http`, `https`, `http2`
@@ -891,7 +889,7 @@ RawRequestDefaultExpression<http2.Http2Server> // -> http2.Http2ServerRequest
 
 #### Reply
 
-##### `fastify.FastifyReply<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>
+##### `fastify.FastifyReply<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>`
 [src](./../types/reply.d.ts#L32)
 
 This interface contains the custom properties that Fastify adds to the standard Node.js reply object. The properties added here disregard what kind of reply object (http vs http2).
@@ -921,7 +919,7 @@ declare module 'fastify' {
 }
 ```
 
-##### `fastify.RawReplyDefaultExpression<`[RawServer][RawServerGeneric]>
+##### `fastify.RawReplyDefaultExpression<[RawServer][RawServerGeneric]>`
 [src](./../types/utils.d.ts#L27)
 
 Dependant on `@types/node` modules `http`, `https`, `http2`
@@ -947,17 +945,17 @@ Fastify allows the user to extend its functionalities with plugins. A plugin can
 
 When creating plugins for Fastify, it is recommended to use the `fastify-plugin` module. Additionally, there is a guide to creating plugins with TypeScript and Fastify available in the Learn by Example, [Plugins](#plugins) section.
 
-##### `fastify.FastifyPluginCallback<`[Options][FastifyPluginOptions]>
+##### `fastify.FastifyPluginCallback<[Options][FastifyPluginOptions]>`
 [src](../types/plugin.d.ts#L9)
 
 Interface method definition used within the [`fastify.register()`][FastifyRegister] method.
 
-##### `fastify.FastifyPluginAsync<`[Options][FastifyPluginOptions]>
+##### `fastify.FastifyPluginAsync<[Options][FastifyPluginOptions]>`
 [src](../types/plugin.d.ts#L20)
 
 Interface method definition used within the [`fastify.register()`][FastifyRegister] method.
 
-##### `fastify.FastifyPlugin<`[Options][FastifyPluginOptions]>
+##### `fastify.FastifyPlugin<[Options][FastifyPluginOptions]>`
 [src](../types/plugin.d.ts#L29)
 
 Interface method definition used within the [`fastify.register()`][FastifyRegister] method.
@@ -1009,7 +1007,7 @@ This type is the intersection of the `Options` generic and a non-exported interf
 
 Check out the [Specifying Logger Types](#example-5-specifying-logger-types) example for more details on specifying a custom logger.
 
-##### `fastify.FastifyLoggerOptions<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric]>
+##### `fastify.FastifyLoggerOptions<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric]>`
 
 [src](../types/logger.d.ts#L17)
 
@@ -1047,13 +1045,13 @@ This type definition is potentially incomplete. If you are using it and can prov
 
 One of the core principles in Fastify is its routing capabilities. Most of the types defined in this section are used under-the-hood by the Fastify instance `.route` and `.get/.post/.etc` methods.
 
-##### `fastify.RouteHandlerMethod<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>
+##### `fastify.RouteHandlerMethod<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>`
 
 [src](../types/route.d.ts#L105)
 
 A type declaration for the route handler methods. Has two arguments, `request` and `reply` which are typed by `FastifyRequest` and `FastifyReply` respectfully. The generics parameters are passed through to these arguments. The method returns either `void` or `Promise<any>` for synchronous and asynchronous handlers respectfully.
 
-##### `fastify.RouteOptions<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>
+##### `fastify.RouteOptions<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>`
 
 [src](../types/route.d.ts#L78)
 
@@ -1062,19 +1060,19 @@ An interface than extends RouteShorthandOptions and adds the follow three requir
 2. `url` a string for the route
 3. `handler` the route handler method, see [RouteHandlerMethod][] for more details
 
-##### `fastify.RouteShorthandMethod<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric]>
+##### `fastify.RouteShorthandMethod<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric]>`
 
 [src](../types/route.d.ts#12)
 
 An overloaded function interface for three kinds of shorthand route methods to be used in conjunction with the `.get/.post/.etc` methods.
 
-##### `fastify.RouteShorthandOptions<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>
+##### `fastify.RouteShorthandOptions<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>`
 
 [src](../types/route.d.ts#55)
 
 An interface that covers all of the base options for a route. Each property on this interface is optional, and it serves as the base for the RouteOptions and RouteShorthandOptionsWithHandler interfaces.
 
-##### `fastify.RouteShorthandOptionsWithHandler<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>
+##### `fastify.RouteShorthandOptionsWithHandler<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>`
 
 [src](../types/route.d.ts#93)
 
@@ -1088,19 +1086,19 @@ This interface adds a single, required property to the RouteShorthandOptions int
 
 A generic type that is either a `string` or `Buffer`
 
-##### `fastify.FastifyBodyParser<`[RawBody][RawBodyGeneric], [RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric]>
+##### `fastify.FastifyBodyParser<[RawBody][RawBodyGeneric], [RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric]>`
 
 [src](../types/content-type-parser.d.ts#L7)
 
 A function type definition for specifying a body parser method. Use the `RawBody` generic to specify the type of the body being parsed.
 
-##### `fastify.FastifyContentTypeParser<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric]>
+##### `fastify.FastifyContentTypeParser<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric]>`
 
 [src](../types/content-type-parser.d.ts#L17)
 
 A function type definition for specifying a body parser method. Content is typed via the `RawRequest` generic.
 
-##### `fastify.AddContentTypeParser<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric]>
+##### `fastify.AddContentTypeParser<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric]>`
 
 [src](../types/content-type-parser.d.ts#L46)
 
@@ -1136,7 +1134,7 @@ This interface is passed to instance of FastifyError.
 
 #### Hooks
 
-##### `fastify.onRequestHookHandler<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(request: [FastifyRequest][FastifyRequest], reply: [FastifyReply][FastifyReply], done: (err?: [FastifyError][FastifyError]) => void): Promise\<unknown\> | void
+##### `fastify.onRequestHookHandler<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(request: [FastifyRequest][FastifyRequest], reply: [FastifyReply][FastifyReply], done: (err?: [FastifyError][FastifyError]) => void): Promise\<unknown\> | void`
 
 [src](../types/hooks.d.ts#L17)
 
@@ -1144,7 +1142,7 @@ This interface is passed to instance of FastifyError.
 
 Notice: in the `onRequest` hook, request.body will always be null, because the body parsing happens before the `preHandler` hook.
 
-##### `fastify.preParsingHookHandler<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(request: [FastifyRequest][FastifyRequest], reply: [FastifyReply][FastifyReply], done: (err?: [FastifyError][FastifyError]) => void): Promise\<unknown\> | void
+##### `fastify.preParsingHookHandler<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(request: [FastifyRequest][FastifyRequest], reply: [FastifyReply][FastifyReply], done: (err?: [FastifyError][FastifyError]) => void): Promise\<unknown\> | void`
 
 [src](../types/hooks.d.ts#L35)
 
@@ -1154,19 +1152,19 @@ Notice: in the `preParsing` hook, request.body will always be null, because the 
 
 Notice: you should also add `receivedEncodedLength` property to the returned stream. This property is used to correctly match the request payload with the `Content-Length` header value. Ideally, this property should be updated on each received chunk.
 
-##### `fastify.preValidationHookHandler<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(request: [FastifyRequest][FastifyRequest], reply: [FastifyReply][FastifyReply], done: (err?: [FastifyError][FastifyError]) => void): Promise\<unknown\> | void
+##### `fastify.preValidationHookHandler<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(request: [FastifyRequest][FastifyRequest], reply: [FastifyReply][FastifyReply], done: (err?: [FastifyError][FastifyError]) => void): Promise\<unknown\> | void`
 
 [src](../types/hooks.d.ts#L53)
 
 `preValidation` is the third hook to be executed in the request lifecycle. The previous hook was `preParsing`, the next hook will be `preHandler`.
 
-##### `fastify.preHandlerHookHandler<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(request: [FastifyRequest][FastifyRequest], reply: [FastifyReply][FastifyReply], done: (err?: [FastifyError][FastifyError]) => void): Promise\<unknown\> | void
+##### `fastify.preHandlerHookHandler<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(request: [FastifyRequest][FastifyRequest], reply: [FastifyReply][FastifyReply], done: (err?: [FastifyError][FastifyError]) => void): Promise\<unknown\> | void`
 
 [src](../types/hooks.d.ts#L70)
 
 `preHandler` is the fourth hook to be executed in the request lifecycle. The previous hook was `preValidation`, the next hook will be `preSerialization`.
 
-##### `fastify.preSerializationHookHandler<PreSerializationPayload`, [RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(request: [FastifyRequest][FastifyRequest], reply: [FastifyReply][FastifyReply], payload: PreSerializationPayload, done: (err: [FastifyError][FastifyError] | null, res?: unknown) => void): Promise\<unknown\> | void
+##### `fastify.preSerializationHookHandler<PreSerializationPayload, [RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(request: [FastifyRequest][FastifyRequest], reply: [FastifyReply][FastifyReply], payload: PreSerializationPayload, done: (err: [FastifyError][FastifyError] | null, res?: unknown) => void): Promise\<unknown\> | void`
 
 [src](../types/hooks.d.ts#L94)
 
@@ -1174,7 +1172,7 @@ Notice: you should also add `receivedEncodedLength` property to the returned str
 
 Note: the hook is NOT called if the payload is a string, a Buffer, a stream or null.
 
-##### `fastify.onSendHookHandler<OnSendPayload`, [RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(request: [FastifyRequest][FastifyRequest], reply: [FastifyReply][FastifyReply], payload: OnSendPayload, done: (err: [FastifyError][FastifyError] | null, res?: unknown) => void): Promise\<unknown\> | void
+##### `fastify.onSendHookHandler<OnSendPayload, [RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(request: [FastifyRequest][FastifyRequest], reply: [FastifyReply][FastifyReply], payload: OnSendPayload, done: (err: [FastifyError][FastifyError] | null, res?: unknown) => void): Promise\<unknown\> | void`
 
 [src](../types/hooks.d.ts#L114)
 
@@ -1182,7 +1180,7 @@ You can change the payload with the `onSend` hook. It is the sixth hook to be ex
 
 Note: If you change the payload, you may only change it to a string, a Buffer, a stream, or null.
 
-##### `fastify.onResponseHookHandler<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(request: [FastifyRequest][FastifyRequest], reply: [FastifyReply][FastifyReply], done: (err?: [FastifyError][FastifyError]) => void): Promise\<unknown\> | void
+##### `fastify.onResponseHookHandler<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(request: [FastifyRequest][FastifyRequest], reply: [FastifyReply][FastifyReply], done: (err?: [FastifyError][FastifyError]) => void): Promise\<unknown\> | void`
 
 [src](../types/hooks.d.ts#L134)
 
@@ -1190,7 +1188,7 @@ Note: If you change the payload, you may only change it to a string, a Buffer, a
 
 The onResponse hook is executed when a response has been sent, so you will not be able to send more data to the client. It can however be useful for sending data to external services, for example to gather statistics.
 
-##### `fastify.onErrorHookHandler<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(request: [FastifyRequest][FastifyRequest], reply: [FastifyReply][FastifyReply], error: [FastifyError][FastifyError], done: () => void): Promise\<unknown\> | void
+##### `fastify.onErrorHookHandler<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(request: [FastifyRequest][FastifyRequest], reply: [FastifyReply][FastifyReply], error: [FastifyError][FastifyError], done: () => void): Promise\<unknown\> | void`
 
 [src](../types/hooks.d.ts#L154)
 
@@ -1202,13 +1200,13 @@ This hook will be executed only after the customErrorHandler has been executed, 
 
 Notice: unlike the other hooks, pass an error to the done function is not supported.
 
-##### `fastify.onRouteHookHandler<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(opts: [RouteOptions][RouteOptions] & { path: string; prefix: string }): Promise\<unknown\> | void
+##### `fastify.onRouteHookHandler<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [RequestGeneric][FastifyRequestGenericInterface], [ContextConfig][ContextConfigGeneric]>(opts: [RouteOptions][RouteOptions] & { path: string; prefix: string }): Promise\<unknown\> | void`
 
 [src](../types/hooks.d.ts#L174)
 
 Triggered when a new route is registered. Listeners are passed a routeOptions object as the sole parameter. The interface is synchronous, and, as such, the listener does not get passed a callback
 
-##### `fastify.onRegisterHookHandler<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [Logger][LoggerGeneric]>(instance: [FastifyInstance][FastifyInstance], done: (err?: [FastifyError][FastifyError]) => void): Promise\<unknown\> | void
+##### `fastify.onRegisterHookHandler<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [Logger][LoggerGeneric]>(instance: [FastifyInstance][FastifyInstance], done: (err?: [FastifyError][FastifyError]) => void): Promise\<unknown\> | void`
 
 [src](../types/hooks.d.ts#L191)
 
@@ -1218,7 +1216,7 @@ This hook can be useful if you are developing a plugin that needs to know when a
 
 Note: This hook will not be called if a plugin is wrapped inside fastify-plugin.
 
-##### `fastify.onCloseHookHandler<`[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [Logger][LoggerGeneric]>(instance: [FastifyInstance][FastifyInstance], done: (err?: [FastifyError][FastifyError]) => void): Promise\<unknown\> | void
+##### `fastify.onCloseHookHandler<[RawServer][RawServerGeneric], [RawRequest][RawRequestGeneric], [RawReply][RawReplyGeneric], [Logger][LoggerGeneric]>(instance: [FastifyInstance][FastifyInstance], done: (err?: [FastifyError][FastifyError]) => void): Promise\<unknown\> | void`
 
 [src](../types/hooks.d.ts#L206)
 

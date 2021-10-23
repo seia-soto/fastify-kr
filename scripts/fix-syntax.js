@@ -36,21 +36,31 @@ const findAll = (root = path.join(process.cwd(), 'docs')) => {
  * Replace invalid syntaxes
  *
  * @param {string} content The content of article
+ * @param {string} filename The filename of article
  * @returns Fixed article content
  */
-const fix = (content = '') => {
+const fix = (content = '', filename = '') => {
   return content
-    .replace(/<h1 align="center">\w+<\/h1>\n+(#+\W[\.\w>< -]+)?/im, '') // replace useless headers
-    .replace(/(#+) +([\.\w>< -]+)/ig, (match, p1, p2) => {
+    .replace(/(#+) +([^\n]+)/ig, (match, p1, p2) => {
       if (/[`]/.test(p2 + '') || !/[<>]/.test(p2 + '')) {
         return `${p1} ${p2}`
       }
 
       return `${p1} \`${p2}\``
     }) // cover headers
+    .replace(/^[\n]?<\w+ \w+="[\w-]+">[^\n]*<\/\w+[^\n]?>\n+(#+) +([^\n]+\n+)/i, (match, p1, p2) => {
+      const firstTitle = p2.trim().replace(/\W/g, '').toLowerCase() // normalize title to match with filename
+      const filenameNormalized = filename.replace(/\W/g, '').toLowerCase()
+
+      if (firstTitle === filenameNormalized) {
+        return ''
+      }
+
+      return `${p1} ${p2}`
+    }) // remove first title with a tag
+    .replace(/<h1 align="center">\w+<\/h1>\n+(?:#+\W[^\n]+)?/im, '') // replace useless headers
     .replace(/\[(.*)\]\(\)/ig, '$1') // unlink empty links
     .replace(/(<a (?:name|id)="[\w-]+"><\/a.?>)\n+/igm, '$1\n\n') // add line break after manual link
-    .replace(/^[\n]?(<a (?:name|id)="[\w-]+"><\/a.?>)\n+#+ +[\.\w>< -]+\n+/i, '') // remove first title with a tag
     .replace(/\<(?:br)\>/ig, '<br/>') // find unclosed things
     .replace(/\(\/docs\/([\w-]+\.md)\)/ig, '($1)') // /docs/* to *
     .replace(/\(\/([\w-]+\.md)\)/ig, '(https://github.com/fastify/fastify/blob/main/$1)') // /* to fastify/fastify/*
@@ -58,7 +68,8 @@ const fix = (content = '') => {
 
 findAll()
   .forEach(file => {
-    const updated = fix(fs.readFileSync(file, 'utf-8'))
+    const filename = file.split(path.delimiter).pop().split('/').pop().split('.').shift()
+    const updated = fix(fs.readFileSync(file, 'utf-8'), filename)
 
     fs.writeFileSync(
       file,
