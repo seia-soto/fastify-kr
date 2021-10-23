@@ -1,7 +1,3 @@
-<a id="errors"></a>
-
-## Errors
-
 <a name="error-handling"></a>
 
 ### Error Handling In Node.js

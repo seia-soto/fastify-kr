@@ -50,6 +50,7 @@ const fix = (content = '') => {
     }) // cover headers
     .replace(/\[(.*)\]\(\)/ig, '$1') // unlink empty links
     .replace(/(<a (?:name|id)="[\w-]+"><\/a.?>)\n+/igm, '$1\n\n') // add line break after manual link
+    .replace(/^[\n]?(<a (?:name|id)="[\w-]+"><\/a.?>)\n+#+ +[\.\w>< -]+\n+/i, '') // remove first title with a tag
     .replace(/\<(?:br)\>/ig, '<br/>') // find unclosed things
     .replace(/\(\/docs\/([\w-]+\.md)\)/ig, '($1)') // /docs/* to *
     .replace(/\(\/([\w-]+\.md)\)/ig, '(https://github.com/fastify/fastify/blob/main/$1)') // /* to fastify/fastify/*
