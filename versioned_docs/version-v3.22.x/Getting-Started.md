@@ -286,7 +286,7 @@ module.exports = routes
 MongoDB 플러그인은 `decorate` API를 Fastify 인스턴스에 새로운 객체들을 모든 곳에서 샤용가능하도록 추가합니다.
 이 API를 사용하는 것은 쉬운 코드 재사용과 중복 로직을 줄이기 위해 권장됩니다.
 
-Fastify 플러그인이 작동하는 방식을 더 깊게 파고들어, 비동기식으로 애플리케이션을 시작하는 문제를 다루기 위해 어떻게 새로운 플러그인을 작성하고 모든 Fastify API를 사용하는 방법에 대해서는 [hitchhiker의 플러그인 가이드](Plugins-Guide.md)를 읽어보세요.
+Fastify 플러그인이 작동하는 방식을 더 깊게 파고들어, 비동기식으로 애플리케이션을 시작하는 문제를 다루기 위해 어떻게 새로운 플러그인을 작성하고 모든 Fastify API를 사용하는 방법에 대해서는 [히치하이커의 플러그인 가이드](Plugins-Guide.md)를 읽어보세요.
 
 <a name="plugin-loading-order"></a>
 

@@ -1,4 +1,4 @@
-# hitchhiker의 플러그인 가이드
+# 히치하이커의 플러그인 가이드
 First of all, `DON'T PANIC`!
 
 Fastify was built from the beginning to be an extremely modular system. We built a powerful API that allows you to add methods and utilities to Fastify by creating a namespace. We built a system that creates an encapsulation model, which allows you to split your application into multiple microservices at any moment, without the need to refactor the entire application.

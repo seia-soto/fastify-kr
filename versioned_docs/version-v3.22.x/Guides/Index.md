@@ -1,6 +1,6 @@
-# Guides
+# 가이드
 
-## General
+## 일반
 <a id="guides-general"></a>
 
-* [Contributing To Fastify](./Contributing.md)
+* [Fastify에 기여하기](./Contributing.md)

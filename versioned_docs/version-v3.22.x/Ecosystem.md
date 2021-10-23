@@ -2,7 +2,7 @@
 
 Fastify 팀에서 관리되는 플러그인들은 [Core](#core) 아래에 정리되었으며 커뮤니티에 의해 관리되는 플러그인들은 [Community](#community) 쪽에 정리했습니다.
 
-###  [Core](#core)
+### [Core](#core)
 
 - [`fastify-accepts`](https://github.com/fastify/fastify-accepts)는 요청 객체에 [accepts](https://www.npmjs.com/package/accepts)를 지원하도록 합니다.
 - [`fastify-accepts-serializer`](https://github.com/fastify/fastify-accepts-serializer)는 `Accept` 헤더에 따라 응답을 직렬화합니다.
@@ -36,9 +36,9 @@ Fastify 팀에서 관리되는 플러그인들은 [Core](#core) 아래에 정리
 - [`fastify-rate-limit`](https://github.com/fastify/fastify-rate-limit)은 적은 오버헤드로 라우팅별 rate limit을 설정해줍니다.
 - [`fastify-request-context`](https://github.com/fastify/fastify-request-context)는 thread-local 스토리지와 유사한 [AsyncLocalStorage](https://nodejs.org/api/async_hooks.html#async_hooks_class_asynclocalstorage) (없다면 [cls-hooked](https://github.com/Jeff-Lewis/cls-hooked))에 기반한 요청 스토리지 플러그인입니다.
 - [`fastify-response-validation`](https://github.com/fastify/fastify-response-validation)은 Fastify에서 응답 검증을 활성화하는 플러그인입니다.
-- [`fastify-nextjs`](https://github.com/fastify/fastify-nextjs) React server-side rendering support for Fastify with [Next](https://github.com/zeit/next.js/).
-- [`fastify-redis`](https://github.com/fastify/fastify-redis) Fastify Redis connection plugin, with which you can share the same Redis connection across every part of your server.
-- [`fastify-reply-from`](https://github.com/fastify/fastify-reply-from) Plugin to forward the current HTTP request to another server.
+- [`fastify-nextjs`](https://github.com/fastify/fastify-nextjs)는 [Next](https://github.com/zeit/next.js/)를 활용하여 Fastify에 React SSR을 지원합니다.
+- [`fastify-redis`](https://github.com/fastify/fastify-redis)는 Fastify Redis 커넥터 플러그인으로 서버 전역에서 연결을 공유할 수 있도록 합니다.
+- [`fastify-reply-from`](https://github.com/fastify/fastify-reply-from)는 다른 서버로 현재 요청을 포워딩해줍니다.
 - [`fastify-routes`](https://github.com/fastify/fastify-routes) Plugin that provides a `Map` of routes.
 - [`fastify-schedule`](https://github.com/fastify/fastify-schedule) Plugin for scheduling periodic jobs, based on [toad-scheduler](https://github.com/kibertoad/toad-scheduler).
 - [`fastify-sensible`](https://github.com/fastify/fastify-sensible) Defaults for Fastify that everyone can agree on. It adds some useful decorators such as HTTP errors and assertions, but also more request and reply methods.
@@ -50,7 +50,7 @@ Fastify 팀에서 관리되는 플러그인들은 [Core](#core) 아래에 정리
 - [`point-of-view`](https://github.com/fastify/point-of-view) Templates rendering (_ejs, pug, handlebars, marko_) plugin support for Fastify.
 - [`under-pressure`](https://github.com/fastify/under-pressure) Measure process load with automatic handling of _"Service Unavailable"_ plugin for Fastify.
 
-###  [Community](#community)
+### [Community](#community)
 
 - [`@applicazza/fastify-nextjs`](https://github.com/applicazza/fastify-nextjs) Alternate Fastify and Next.js integration.
 - [`@coobaha/typed-fastify`](https://github.com/Coobaha/typed-fastify) Strongly typed routes with a runtime validation using JSON schema generated from types.
