@@ -1,4 +1,4 @@
-
+# 로깅
 
 Logging is disabled by default, and you can enable it by passing
 `{ logger: true }` or `{ logger: { level: 'info' } }` when you create

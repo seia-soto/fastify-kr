@@ -1,4 +1,4 @@
-
+# TypeScript
 
 The Fastify framework is written in vanilla JavaScript, and as such type definitions are not as easy to maintain; however, since version 2 and beyond, maintainers and contributors have put in a great effort to improve the types.
 
@@ -149,7 +149,7 @@ When you want to use it for validation of some payload in a fastify route you ca
     ```
 
 2. Define the schema you need with `Type` and create the respective type  with `Static`.
-  
+
     ```typescript
     import { Static, Type } from '@sinclair/typebox'
 
@@ -355,7 +355,7 @@ fastify.post<{ Body: FromSchema<typeof todo> }>(
   async (request, reply): Promise<void> => {
 
     /*
-    request.body has type 
+    request.body has type
     {
       [x: string]: unknown;
       description?: string;
@@ -366,7 +366,7 @@ fastify.post<{ Body: FromSchema<typeof todo> }>(
 
     request.body.name // will not throw type error
     request.body.notthere // will throw type error
-    
+
     reply.status(201).send();
   },
 );

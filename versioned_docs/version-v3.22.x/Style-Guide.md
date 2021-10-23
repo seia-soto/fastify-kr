@@ -1,4 +1,4 @@
-# Fastify Style Guide
+# Fastify 스타일 가이드
 
 ## Welcome
 
@@ -20,7 +20,7 @@ You need to know the following:
 * GitHub
 * Markdown
 * HTTP
-* NPM 
+* NPM
 
 ### Consider your Audience
 
@@ -36,7 +36,7 @@ Less like this: Colons are very important to register a parametric path. It lets
 
 More Like this: To register a parametric path, put a colon before the parameter name. Using a colon lets the framework know it is a parametric path and not a static path.
 
-### Avoid adding video or image content 
+### Avoid adding video or image content
 
 
 Do not add videos or screenshots in the documentation. It is easier to keep under version control. Videos and images will eventually end up becoming outdated as new updates keep developing. Instead, make a referral link or a YouTube video. You can add links by using `[Title](www.websitename.com)` in the markdown.
@@ -64,7 +64,7 @@ There are a few things you need to use and avoid when writing your documentation
 
 ### When to use the second person "you" as the pronoun
 
-When writing articles or guides, your content should communicate directly to readers in the second person ("you") addressed form. It is easier to give them direct instruction on what to do on a particular topic. To see an example, visit the [Plugins-guide.md](Plugins-Guide.md) page on Github. 
+When writing articles or guides, your content should communicate directly to readers in the second person ("you") addressed form. It is easier to give them direct instruction on what to do on a particular topic. To see an example, visit the [Plugins-guide.md](Plugins-Guide.md) page on Github.
 
 **Example**
 
@@ -84,7 +84,7 @@ Less like this: You can use the following recommendation as an example.
 
 More like this: As an example, the following recommendations should be referenced.
 
-To view a live example, refer to the [Decorators.md](Decorators.md) reference document. 
+To view a live example, refer to the [Decorators.md](Decorators.md) reference document.
 
 
 ### Avoid using contractions
@@ -96,7 +96,7 @@ Avoid contractions to provide a more formal tone.
 
 Condescending terms are words that include:
 
-* Just 
+* Just
 * Easy
 * Simply
 * Basically
@@ -115,12 +115,12 @@ Mostly start your description with a verb, which makes it simple and precise for
 
  More like this: Install Node.js to make use of Fastify.
 
-### Grammatical moods 
+### Grammatical moods
 
 Grammatical moods are a great way to express your writing. Avoid sounding too bossy while making a direct statement. Know when to switch between indicative, imperative, and subjunctive moods.
 
 
-**Indicative** - Use when making a factual statement or question. 
+**Indicative** - Use when making a factual statement or question.
 
 Example: Since there is no testing framework available, "Fastify recommends ways to write tests".
 
@@ -151,14 +151,14 @@ Active:  npm installs packages and node dependencies.
 When creating a new guide, API, or reference in the `/docs/` directory, use short titles that best describe the topic of your documentation. Name your files in kebab-cases and avoid Raw or camelCase. To learn more about kebab-case you can visit this medium article on [Case Styles](https://medium.com/better-programming/string-case-styles-camel-pascal-snake-and-kebab-case-981407998841).
 
 **Examples**: <br/>
->`hook-and-plugins.md`, <br/> 
+>`hook-and-plugins.md`, <br/>
  `adding-test-plugins.md`, <br/>
  `removing-requests.md`.
 
 ### Hyperlinks
 
 Hyperlinks should have a clear title of what it references.
-Here is how your hyperlink should look: 
+Here is how your hyperlink should look:
 
 ```MD
 <!-- More like this -->
@@ -168,7 +168,7 @@ Here is how your hyperlink should look:
 
 <!--Less like this -->
 
-// incomplete description 
+// incomplete description
 [Fastify] (https://www.fastify.io/docs/latest/Plugins/)
 
 // Adding title in link brackets

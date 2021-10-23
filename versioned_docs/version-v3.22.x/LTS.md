@@ -1,3 +1,5 @@
+# 장기 지원
+
 Fastify's Long Term Support (LTS) is provided according to the schedule laid
 out in this document:
 

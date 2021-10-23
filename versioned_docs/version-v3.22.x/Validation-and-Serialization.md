@@ -1,10 +1,11 @@
+# 검증과 직렬화
 
 Fastify uses a schema-based approach, and even if it is not mandatory we recommend using [JSON Schema](https://json-schema.org/) to validate your routes and serialize your outputs. Internally, Fastify compiles the schema into a highly performant function.
 
 > ## ⚠  Security Notice
 > Treat the schema definition as application code.
 > Validation and serialization features dynamically evaluate
-> code with `new Function()`, which is not safe to use with 
+> code with `new Function()`, which is not safe to use with
 > user-provided schemas. See [Ajv](https://npm.im/ajv) and
 > [fast-json-stringify](https://npm.im/fast-json-stringify) for more
 > details.
@@ -301,7 +302,7 @@ For further information see [here](https://ajv.js.org/coercion.html)
 
 #### Ajv Plugins
 
-You can provide a list of plugins you want to use with the default `ajv` instance.  
+You can provide a list of plugins you want to use with the default `ajv` instance.
 Note that the plugin must be **compatible with Ajv v6**.
 
 > Refer to [`ajv options`](Server.md#ajv) to check plugins format

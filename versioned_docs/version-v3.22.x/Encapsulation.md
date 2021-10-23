@@ -1,3 +1,5 @@
+# 캡슐화
+
 A fundamental feature of Fastify is the "encapsulation context." The
 encapsulation context governs which [decorators](./Decorators.md), registered
 [hooks](./Hooks.md), and [plugins](./Plugins.md) are available to

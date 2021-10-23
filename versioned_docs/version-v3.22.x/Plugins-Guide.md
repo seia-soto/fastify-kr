@@ -1,4 +1,4 @@
-'s guide to plugins
+# hitchhiker의 플러그인 가이드
 First of all, `DON'T PANIC`!
 
 Fastify was built from the beginning to be an extremely modular system. We built a powerful API that allows you to add methods and utilities to Fastify by creating a namespace. We built a system that creates an encapsulation model, which allows you to split your application into multiple microservices at any moment, without the need to refactor the entire application.
@@ -303,7 +303,7 @@ async function plugin (fastify, opts) {
 
 export default plugin
 ```
-__Note__: Fastify does not support named imports within an ESM context. Instead, the `default` export is available. 
+__Note__: Fastify does not support named imports within an ESM context. Instead, the `default` export is available.
 
 ```js
 // server.mjs

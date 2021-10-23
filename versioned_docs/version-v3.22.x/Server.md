@@ -1,3 +1,5 @@
+# 서버
+
 The Fastify module exports a factory function that is used to create new
 <code><b>Fastify server</b></code> instances. This factory function accepts
 an options object which is used to customize the resulting instance. This
@@ -533,10 +535,10 @@ const fastify = require('fastify')({
 Set a default
 [timeout](https://nodejs.org/api/http2.html#http2_http2session_settimeout_msecs_callback) to every incoming HTTP/2 session. The session will be closed on the timeout. Default: `5000` ms.
 
-Note that this is needed to offer the graceful "close" experience when using HTTP/2. 
-The low default has been chosen to mitigate denial of service attacks. 
-When the server is behind a load balancer or can scale automatically this value can be 
-increased to fit the use case. Node core defaults this to `0`. ` 
+Note that this is needed to offer the graceful "close" experience when using HTTP/2.
+The low default has been chosen to mitigate denial of service attacks.
+When the server is behind a load balancer or can scale automatically this value can be
+increased to fit the use case. Node core defaults this to `0`. `
 
 <a name="framework-errors"></a>
 
@@ -997,7 +999,7 @@ This property can be used to set a function to format errors that happen while t
 <a name="schema-controller"></a>
 
 #### schemaController
-This property can be used to fully manage: 
+This property can be used to fully manage:
 - `bucket`: where the schemas of your application will be stored
 - `compilersFactory`: what module must compile the JSON schemas
 
@@ -1050,7 +1052,7 @@ const fastify = Fastify({
        * encapsulation context.
        * It may receive as input the schemas of the parent context if some schemas have been added.
        * @param {object} externalSchemas these schemas will be returned by the `bucket.getSchemas()`. Needed to resolve the external references $ref.
-       * @param {object} ajvServerOption the server `ajv` options to build your compilers accordingly 
+       * @param {object} ajvServerOption the server `ajv` options to build your compilers accordingly
        */
       buildValidator: function factory (externalSchemas, ajvServerOption) {
         // This factory function must return a schema validator compiler.
@@ -1067,7 +1069,7 @@ const fastify = Fastify({
        * encapsulation context.
        * It may receive as input the schemas of the parent context if some schemas have been added.
        * @param {object} externalSchemas these schemas will be returned by the `bucket.getSchemas()`. Needed to resolve the external references $ref.
-       * @param {object} serializerOptsServerOption the server `serializerOpts` options to build your compilers accordingly 
+       * @param {object} serializerOptsServerOption the server `serializerOpts` options to build your compilers accordingly
        */
       buildSerializer: function factory (externalSchemas, serializerOptsServerOption) {
         // This factory function must return a schema serializer compiler.
@@ -1204,7 +1206,7 @@ fastify.ready(() => {
   //     │   └── /hello (GET)
   //     ├── hello/world (GET)
   //     └── helicopter (GET)
-  
+
 })
 ```
 
@@ -1225,7 +1227,7 @@ fastify.ready(() => {
   console.log(fastify.printRoutes({ includeHooks: true }))
   // └── /
   //     ├── test (GET)
-  //     │   • (onRequest) ["anonymous()","namedFunction()"]  
+  //     │   • (onRequest) ["anonymous()","namedFunction()"]
   //     │   └── /hello (GET)
   //     └── hel
   //         ├── lo/world (GET)

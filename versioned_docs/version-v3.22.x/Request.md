@@ -1,3 +1,4 @@
+# 요청
 
 The first parameter of the handler function is `Request`.<br/>
 Request is a core Fastify object containing the following fields:
@@ -36,7 +37,7 @@ request.headers = {
 }
 ```
 
-This operation will add to the request headers the new values that can be read calling `request.headers.bar`.  
+This operation will add to the request headers the new values that can be read calling `request.headers.bar`.
 Moreover, you can still access the standard request's headers with the `request.raw.headers` property.
 
 ```js

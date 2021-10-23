@@ -1,4 +1,4 @@
-
+# Fluent 스키마
 
 The [Validation and Serialization](Validation-and-Serialization.md) documentation outlines all parameters accepted by Fastify to set up JSON Schema Validation to validate the input, and JSON Schema Serialization to optimize the output.
 

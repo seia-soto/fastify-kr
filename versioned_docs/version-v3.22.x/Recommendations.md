@@ -1,4 +1,4 @@
-
+# 권고 사항
 
 This document contains a set of recommendations when using Fastify.
 
@@ -176,7 +176,7 @@ upstream fastify_app {
 }
 
 # This server block asks NGINX to respond with a redirect when
-# an incoming request from port 80 (typically plain HTTP), to 
+# an incoming request from port 80 (typically plain HTTP), to
 # the same request URL but with HTTPS as protocol.
 # This block is optional, and usually used if you are handling
 # SSL termination in NGINX, like in the example here.
@@ -186,7 +186,7 @@ server {
   # which in this case is any address and port 80
   listen 80 default_server;
   listen [::]:80 default_server;
-  
+
   # With a server_name directive you can also ask NGINX to
   # use this server block only with matching server name(s)
   # listen 80;
