@@ -39,5 +39,16 @@ yarn docs:fix
 #### Stage 2
 
 Stage 2는 이미 Stage 1을 거쳤으므로 기존 번역을 사용가능한 상태라고 볼 수 있습니다.
+현재 어떤 버전의 번역이 진행 중인지 알고 싶으시다면 [`version.json`](/version.json)을 참고해주세요.
 
-별다른 과정없이 번역을 시작하면 됩니다!
+이제 더 별다른 과정없이 번역을 시작하면 됩니다!
+
+#### Stage 3
+
+번역이 완료되면 이제 Docusaurus 태그 기능을 사용하여 새로운 릴리즈를 만듭니다.
+
+```
+yarn create-version v[VERSION]
+```
+
+그리고 [`version.json`](/version.json)을 적절히 수정해주세요.

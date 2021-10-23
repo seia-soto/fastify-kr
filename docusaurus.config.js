@@ -51,6 +51,10 @@ const config = {
             position: 'left'
           },
           {
+            type: 'docsVersionDropdown',
+            position: 'right'
+          },
+          {
             href: 'https://github.com/seia-soto/fastify-kr',
             label: 'GitHub',
             position: 'right'
