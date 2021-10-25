@@ -1,47 +1,35 @@
 # 장기 지원
 
-Fastify's Long Term Support (LTS) is provided according to the schedule laid
-out in this document:
+Fastify의 장기 지원 (LTS)은 현재 문서에 있는 스케쥴에 따라서 제공됩니다:
 
-1. Major releases, "X" release of [semantic versioning][semver] X.Y.Z release
-   versions, are supported for a minimum period of six months from their release
-   date. The release date of any specific version can be found at
-   [https://github.com/fastify/fastify/releases](https://github.com/fastify/fastify/releases).
+1. 주요 릴리즈, X.Y.Z [세만텍 버저닝][semver]의 "X" 릴리즈 버전들은 릴리즈 날짜 이후 최소 6개월동안 지원됩니다.
+   그리고 버전들의 출시 일자들은 [https://github.com/fastify/fastify/releases](https://github.com/fastify/fastify/releases)에서 찾아볼 수 있습니다.
 
-1. Major releases will receive security updates for an additional six months
-   from the release of the next major release. After this period
-   we will still review and release security fixes as long as they are
-   provided by the community and they do not violate other constraints,
-   e.g. minimum supported Node.js version.
+2. 주요 릴리즈는 다음 주요 릴리즈 이후 6개월 동안 보안 업데이트를 받게 됩니다.
+   이 기간 이후에도 여전히 다른 제약 조건을 위반하지 않으면서 팀이 커뮤니티에 기반하여 보안 패치를 리뷰하고 출시할 것입니다.
+   예를 들어서 다른 제약 조건은 최소 지원 Node.JS 버전과 같은 것들입니다.
 
-1. Major releases will be tested and verified against all Node.js
-   release lines that are supported by the
-   [Node.js LTS policy](https://github.com/nodejs/Release) within the
-   LTS period of that given Fastify release line. This implies that only
-   the latest Node.js release of a given line is supported.
+3. 주요 릴리즈들은 Fastify LTS 출시 일정에 맞춰 [Node.JS LTS 정책](https://github.com/nodejs/Release)에 따라 지원되는 모든 Node.JS 출시 제품군은 검증되고 테스트될 것입니다.
+   이것은 일정 내에 가장 최신 버전의 Node.JS 릴리즈만 지원될 것이라는 것을 내포하고 있습니다.
 
-A "month" is defined as 30 consecutive days.
+한 "달"은 연속된 30일로 정의됩니다.
 
-> ## Security Releases and Semver
+> ## 세만틱 버저닝과 보안 릴리즈
 >
-> As a consequence of providing long-term support for major releases, there
-> are occasions where we need to release breaking changes as a _minor_
-> version release. Such changes will _always_ be noted in the
-> [release notes](https://github.com/fastify/fastify/releases).
+> 주요 릴리즈에 장기 지원을 제공함에 따라 여기에는 중요한 변경 사항을 _마이너_ 버전으로 릴리즈해야 하는 문제가 있습니다.
+> 이러한 변경 사항은 _언제나_ [릴리즈 노트](https://github.com/fastify/fastify/releases)에 언급될 것입니다.
 >
-> To avoid automatically receiving breaking security updates it is possible to use
-> the tilde (`~`) range qualifier. For example, to get patches for the 3.15
-> release, and avoid automatically updating to the 3.16 release, specify
-> the dependency as `"fastify": "~3.15.x"`. This will leave your application vulnerable,
-> so please use with caution.
+> 자동으로 중대 변경 사항을 받는 것을 피하려면 `~`를 버전 범위에 사용하는 것이 가능합니다.
+> 예를 들어서 3.15 릴리즈에 대한 패치를 받고 3.16 릴리즈를 받지 않으려면 의존성을 `"fastify": "~3.15.x"`와 같이 작성해야 합니다.
+> 이것은 여러분의 애플리케이션을 취약한 상태로 남겨둘테니 꼭 주의해서 사용해야 합니다.
 
 [semver]: https://semver.org/
 
 <a name="lts-schedule"></a>
 
-### Schedule
+### 스케쥴
 
-| Version | Release Date | End Of LTS Date | Node.js              |
+| 버전     | 릴리즈 일자     | LTS 지원 종료 기간 | Node.js              |
 | :------ | :----------- | :-------------- | :------------------- |
 | 1.0.0   | 2018-03-06   | 2019-09-01      | 6, 8, 9, 10, 11      |
 | 2.0.0   | 2019-02-25   | 2021-01-31      | 6, 8, 10, 12, 14     |
@@ -49,12 +37,10 @@ A "month" is defined as 30 consecutive days.
 
 <a name="supported-os"></a>
 
-### CI tested operating systems
+### CI로 테스트된 운영체제
 
-Fastify uses GitHub Actions for CI testing, please refer to
-[GitHub's documentation regarding workflow runners](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)
-for further details on what the latest virtual environment is in relation to
-the YAML workflow labels below:
+Fastify는 GitHub Actions를 CI 테스트에 사용합니다.
+아래의 YAML 워크플로우 라벨에 따른 최신 가상 환경이 어떻게 관련되어 있는지 더 자세히 알아보기 위해서는 [워크플로우 runner에 관한 GitHub 문서](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)를 참고해주세요:
 
 | OS      | YAML Workflow Label    | Package Manager           | Node.js      |
 |---------|------------------------|---------------------------|--------------|
@@ -63,4 +49,4 @@ the YAML workflow labels below:
 | Windows | `windows-latest`       | npm                       | 10,12,14,16  |
 | MacOS   | `macos-latest`         | npm                       | 10,12,14,16  |
 
-Using [yarn](https://yarnpkg.com/) might require passing the `--ignore-engines` flag.
+[yarn](https://yarnpkg.com/)을 사용하는 것은 `--ignore-engines` 플래그를 필요로 할 수도 있습니다.
