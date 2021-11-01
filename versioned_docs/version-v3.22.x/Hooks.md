@@ -1,10 +1,12 @@
 # 훅
 
-Hooks are registered with the `fastify.addHook` method and allow you to listen to specific events in the application or request/response lifecycle. You have to register a hook before the event is triggered, otherwise, the event is lost.
+훅은 `fastify.addHook` 메서드로 등록될 수 있으며 애플리케이션이나 요청/응답 생명 주기의 특정 이벤트를 들을 수 있게 해줍니다.
+훅을 이벤트 전에 등록하지 않으면 이벤트는 소실될 것입니다.
 
-By using hooks you can interact directly with the lifecycle of Fastify. There are Request/Reply hooks and application hooks:
+이러한 훅을 사용하므로써 Fastify의 생명 주기와 직접적으로 상호작용할 수 있습니다.
+애플리케이션과 요청/응답 훅 모두 사용 가능합니다:
 
-- [Request/Reply Hooks](#requestreply-hooks)
+- [요청/응답 훅](#requestreply-hooks)
   - [onRequest](#onrequest)
   - [preParsing](#preparsing)
   - [preValidation](#prevalidation)
@@ -14,15 +16,15 @@ By using hooks you can interact directly with the lifecycle of Fastify. There ar
   - [onSend](#onsend)
   - [onResponse](#onresponse)
   - [onTimeout](#ontimeout)
-  - [Manage Errors from a hook](#manage-errors-from-a-hook)
-  - [Respond to a request from a hook](#respond-to-a-request-from-a-hook)
-- [Application Hooks](#application-hooks)
+  - [훅에서의 오류 관리](#manage-errors-from-a-hook)
+  - [훅에서 응답하기](#respond-to-a-request-from-a-hook)
+- [애플리케이션 훅](#application-hooks)
   - [onReady](#onready)
   - [onClose](#onclose)
   - [onRoute](#onroute)
   - [onRegister](#onregister)
-- [Scope](#scope)
-- [Route level hooks](#route-level-hooks)
+- [스코프](#scope)
+- [라우팅 단위 훅](#route-level-hooks)
 
 **Notice:** the `done` callback is not available when using `async`/`await` or returning a `Promise`. If you do invoke a `done` callback in this situation unexpected behavior may occur, e.g. duplicate invocation of handlers.
 
