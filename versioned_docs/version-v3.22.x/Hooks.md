@@ -26,67 +26,71 @@
 - [스코프](#scope)
 - [라우팅 단위 훅](#route-level-hooks)
 
-**Notice:** the `done` callback is not available when using `async`/`await` or returning a `Promise`. If you do invoke a `done` callback in this situation unexpected behavior may occur, e.g. duplicate invocation of handlers.
+**알림:** `done` 콜백은 `async`/`await`을 사용할 때 혹은 `Promise`를 반환할 때 사용가능하지 않습니다.
+먄약에 `done` 콜백을 이러한 상황에서 호출하면 예상치 못한 동작이 발생할 수 있습니다. 예) 핸들러의 중복 호출
 
-## Request/Reply Hooks
+## 요청/응답 훅
 
-[Request](Request.md) and [Reply](Reply.md) are the core Fastify objects.<br/>
-`done` is the function to continue with the [lifecycle](Lifecycle.md).
+[요청](Request.md)과 [응답](Reply.md)는 Fastify 핵심 객체들입니다.<br/>
+`done`은 [생명 주기](Lifecycle.md)를 지속하기 위한 함수입니다.
 
-It is easy to understand where each hook is executed by looking at the [lifecycle page](Lifecycle.md).<br/>
-Hooks are affected by Fastify's encapsulation, and can thus be applied to selected routes. See the [Scopes](#scope) section for more information.
+[생명 주기 페이지](Lifecycle.md)에서 각각의 훅이 어디에서 실행되는지 이해하기가 쉽습니다.<br/>
+훅은 Fastify의 캡슐화에 의해 영향을 받으며 선택적으로 라우팅에 적용될 수 있습니다.
+더 많은 정보를 확인하려면 [스코프](#scope) 섹션을 참고하세요.
 
-There are eight different hooks that you can use in Request/Reply *(in order of execution)*:
+요청/응답에는 8개의 다른 사용가능한 훅이 있습니다 *(순서대로)*:
 
 ### onRequest
 ```js
 fastify.addHook('onRequest', (request, reply, done) => {
-  // Some code
+  // 코드 몇 줄
   done()
 })
 ```
-Or `async/await`:
+또는 `async/await`:
 ```js
 fastify.addHook('onRequest', async (request, reply) => {
-  // Some code
+  // 코드 몇 줄
   await asyncMethod()
 })
 ```
 
-**Notice:** in the [onRequest](#onrequest) hook, `request.body` will always be `null`, because the body parsing happens before the [preValidation](#prevalidation) hook.
+**알림:** [onRequest](#onrequest) 훅에서는 본문 파싱이 [preValidation](#prevalidation) 훅 전에 일어나므로 `request.body`가 언제나 `null`입니다.
 
 ### preParsing
 
-If you are using the `preParsing` hook, you can transform the request payload stream before it is parsed. It receives the request and reply objects as other hooks, and a stream with the current request payload.
+만약 `preParsing` 훅을 사용하고 있으시다면 요청 본문 스트림을 파싱되기 전에 변경할 수 있습니다.
+이 훅은 다른 훅과 마찬가지로 요청과 응답 객체를 받고 또 현재 요청 본문의 스트림을 받습니다.
 
-If it returns a value (via `return` or via the callback function), it must return a stream.
+만약 값을 반환할 경우(`return` 또는 콜백 함수를 통해), 반드시 스트림을 반환해야 합니다.
 
-For instance, you can uncompress the request body:
+예를 들어, 요청 본문을 압축 해제할 수 있습니다:
 
 ```js
 fastify.addHook('preParsing', (request, reply, payload, done) => {
-  // Some code
+  // 코드 몇 줄
   done(null, newPayload)
 })
 ```
-Or `async/await`:
+또는 `async/await`:
 ```js
 fastify.addHook('preParsing', async (request, reply, payload) => {
-  // Some code
+  // 코드 몇 줄
   await asyncMethod()
   return newPayload
 })
 ```
 
-**Notice:** in the [preParsing](#preparsing) hook, `request.body` will always be `null`, because the body parsing happens before the [preValidation](#prevalidation) hook.
+**안내:** [preParsing](#preparsing) 훅에서는 본문 파싱이 [preValidation](#prevalidation) 훅 전에 일어나므로 `request.body`가 언제나 `null`이 될 것입니다.
 
-**Notice:** you should also add a `receivedEncodedLength` property to the returned stream. This property is used to correctly match the request payload with the `Content-Length` header value. Ideally, this property should be updated on each received chunk.
+**안내:** 또한 반드시 `receivedEncodedLength` 속성을 반환하는 스트림에 추가해야 합니다. 이 속성은 요청 본문이 `Content-Length` 헤더 값과 일치하는지 확인하는데에 사용됩니다.
 
-**Notice**: The old syntaxes `function(request, reply, done)` and `async function(request, reply)` for the parser are still supported but they are deprecated.
+**안내:** 파서에 대한 `function (request, reply, done)`과 `async function (request, reply)`와 같은 오래된 문법들은 여전히 지원되지만 더 이상 사용되지는 않습니다.
 
 ### preValidation
 
-If you are using the `preValidation` hook, you can change the payload before it is validated. For example:
+만약 `preValidation` 훅을 사용하고 있으시다면 본문이 검증되기 전에 변경해야 합니다.
+예를 들어:
 
 ```js
 fastify.addHook('preValidation', (request, reply, done) => {
@@ -94,7 +98,7 @@ fastify.addHook('preValidation', (request, reply, done) => {
   done()
 })
 ```
-Or `async/await`:
+또는 `async/await`:
 ```js
 fastify.addHook('preValidation', async (request, reply) => {
   const importantKey = await generateRandomString()
@@ -103,22 +107,25 @@ fastify.addHook('preValidation', async (request, reply) => {
 ```
 
 ### preHandler
+
 ```js
 fastify.addHook('preHandler', (request, reply, done) => {
-  // some code
+  // 코드 몇 줄
   done()
 })
 ```
-Or `async/await`:
+또는 `async/await`:
 ```js
 fastify.addHook('preHandler', async (request, reply) => {
-  // Some code
+  // 코드 몇 줄
   await asyncMethod()
 })
 ```
+
 ### preSerialization
 
-If you are using the `preSerialization` hook, you can change (or replace) the payload before it is serialized. For example:
+만약 `preSerialization` 훅을 사용하고 있으시다면 응답 본문이 직렬화되기 전에 변경 (혹은 대체)할 수 있습니다.
+예를 들어:
 
 ```js
 fastify.addHook('preSerialization', (request, reply, payload, done) => {
@@ -127,36 +134,39 @@ fastify.addHook('preSerialization', (request, reply, payload, done) => {
   done(err, newPayload)
 })
 ```
-Or `async/await`:
+또는 `async/await`:
 ```js
 fastify.addHook('preSerialization', async (request, reply, payload) => {
   return { wrapped: payload }
 })
 ```
 
-Note: the hook is NOT called if the payload is a `string`, a `Buffer`, a `stream`, or `null`.
+안내: 이 훅은 응답 본문이 `string`, `Buffer`, `stream`, 혹은 `null`이면 실행되지 않습니다.
 
 ### onError
 ```js
 fastify.addHook('onError', (request, reply, error, done) => {
-  // Some code
+  // 코드 몇 줄
   done()
 })
 ```
-Or `async/await`:
+또는 `async/await`:
 ```js
 fastify.addHook('onError', async (request, reply, error) => {
-  // Useful for custom error logging
-  // You should not use this hook to update the error
+  // 직접 오류 로깅을 하는데에 효과적입니다
+  // 오류를 업데이트하는데에는 이 훅을 사용해서는 안 됩니다
 })
 ```
-This hook is useful if you need to do some custom error logging or add some specific header in case of error.<br/>
-It is not intended for changing the error, and calling `reply.send` will throw an exception.<br/>
-This hook will be executed only after the `customErrorHandler` has been executed, and only if the `customErrorHandler` sends an error back to the user *(Note that the default `customErrorHandler` always sends the error back to the user)*.<br/>
-**Notice:** unlike the other hooks, pass an error to the `done` function is not supported.
+
+이 훅은 직접 오류 로깅을 해야 하거나 오류에 따라 몇 가지 헤더를 추가하려는 경우 유용합니다.<br/>
+이것은 오류를 변경하기 위하지 않으며 `reply.send`를 호출하는 것은 예외를 발생시킬 것입니다.<br/>
+또 훅은 `customErrorHandler`가 실행될 후에 `customErrorHandler`가 오류를 다시 사용자에게 전달해야만 실행될 것입니다.
+*(기본 `customErrorHandler`는 언제나 사용자에게 오류를 전달하고 있음을 명심해주세요)*<br/>
+**안내:** 다른 훅들과 달리 `done` 함수로 오류를 전달하는 것은 지원되지 않습니다.
 
 ### onSend
-If you are using the `onSend` hook, you can change the payload. For example:
+`onSend` 훅을 사용하는 경우 응답 본문을 변경할 수 있습니다.
+예를 들어:
 
 ```js
 fastify.addHook('onSend', (request, reply, payload, done) => {
@@ -165,7 +175,7 @@ fastify.addHook('onSend', (request, reply, payload, done) => {
   done(err, newPayload)
 })
 ```
-Or `async/await`:
+또는 `async/await`:
 ```js
 fastify.addHook('onSend', async (request, reply, payload) => {
   const newPayload = payload.replace('some-text', 'some-new-text')
@@ -173,7 +183,7 @@ fastify.addHook('onSend', async (request, reply, payload) => {
 })
 ```
 
-You can also clear the payload to send a response with an empty body by replacing the payload with `null`:
+또한 응답 본문을 없애거나 비우기 위해 본문을 `null`로 교체할 수 있습니다:
 
 ```js
 fastify.addHook('onSend', (request, reply, payload, done) => {
