@@ -160,7 +160,7 @@ fastify.addHook('onError', async (request, reply, error) => {
 
 이 훅은 직접 오류 로깅을 해야 하거나 오류에 따라 몇 가지 헤더를 추가하려는 경우 유용합니다.<br/>
 이것은 오류를 변경하기 위하지 않으며 `reply.send`를 호출하는 것은 예외를 발생시킬 것입니다.<br/>
-또 훅은 `customErrorHandler`가 실행될 후에 `customErrorHandler`가 오류를 다시 사용자에게 전달해야만 실행될 것입니다.
+또 `customErrorHandler`가 실행된 후에 `customErrorHandler`가 오류를 다시 사용자에게 전달해야만 실행될 것입니다.
 *(기본 `customErrorHandler`는 언제나 사용자에게 오류를 전달하고 있음을 명심해주세요)*<br/>
 **안내:** 다른 훅들과 달리 `done` 함수로 오류를 전달하는 것은 지원되지 않습니다.
 
@@ -193,50 +193,53 @@ fastify.addHook('onSend', (request, reply, payload, done) => {
 })
 ```
 
-> You can also send an empty body by replacing the payload with the empty string `''`, but be aware that this will cause the `Content-Length` header to be set to `0`, whereas the `Content-Length` header will not be set if the payload is `null`.
+> 또한 비어있는 본문을 전송하기 위해 비어있는 문자열 `''`을 반환하여 본문을 교체할 수 있지만 이 때에는 `null`을 반환할 때와는 달리 `Content-Length` 헤더가 `0`으로 설정된다는 점을 주의해야 합니다.
 
-Note: If you change the payload, you may only change it to a `string`, a `Buffer`, a `stream`, or `null`.
-
+안내: 만약 본문을 변경한다면 `string`, `Buffer`, `stream`, 또는 `null`로만 변경할 수 있습니다.
 
 ### onResponse
 ```js
 
 fastify.addHook('onResponse', (request, reply, done) => {
-  // Some code
+  // 코드 몇 줄
   done()
 })
 ```
-Or `async/await`:
+또는 `async/await`:
 ```js
 fastify.addHook('onResponse', async (request, reply) => {
-  // Some code
+  // 코드 몇 줄
   await asyncMethod()
 })
 ```
 
-The `onResponse` hook is executed when a response has been sent, so you will not be able to send more data to the client. It can however be useful for sending data to external services, for example, to gather statistics.
+`onResponse` 훅은 응답이 전송되고 나서 실행되어 더 이상 클라이언트에 추가 데이터를 보낼 수 없습니다.
+하지만 이것은 외부 서비스로 데이터를 전송하는 경우에 유용합니다.
+예를 들어 통계 수집을 위한 것이 있습니다.
 
 ### onTimeout
 
 ```js
 
 fastify.addHook('onTimeout', (request, reply, done) => {
-  // Some code
+  // 코드 몇 줄
   done()
 })
 ```
-Or `async/await`:
+또는 `async/await`:
 ```js
 fastify.addHook('onTimeout', async (request, reply) => {
-  // Some code
+  // 코드 몇 줄
   await asyncMethod()
 })
 ```
-`onTimeout` is useful if you need to monitor the request timed out in your service (if the `connectionTimeout` property is set on the Fastify instance). The `onTimeout` hook is executed when a request is timed out and the HTTP socket has been hanged up. Therefore ,you will not be able to send data to the client.
+`onTimeout`은 서비스에서 요청의 시간 초과를 확인하려는 경우 유용합니다 (만약 `connectionTimeout` 속성이 Fastify 객체에 설정이 되어 있다면).
+`onTimeout` 훅은 요청이 일정 시간을 초과하여 HTTP 소켓이 끊겼을 때 실행됩니다.
+또 클라이언트에 추가 데이터를 보낼 수는 없게 됩니다.
 
+### 훅에서 오류 관리하기
 
-### Manage Errors from a hook
-If you get an error during the execution of your hook, just pass it to `done()` and Fastify will automatically close the request and send the appropriate error code to the user.
+만약 훅 실행 중에 오류를 발생시키게 된다면 그것을 `done()`으로 전달하여 Fastify가 자동적으로 요청을 종료하고 사용자에게 적절한 오류 코드를 전달하도록 하세요.
 
 ```js
 fastify.addHook('onRequest', (request, reply, done) => {
@@ -244,55 +247,54 @@ fastify.addHook('onRequest', (request, reply, done) => {
 })
 ```
 
-If you want to pass a custom error code to the user, just use `reply.code()`:
+만약 사용자에게 직접 오류 코드를 전송하고 싶으시다면 `reply.code()`를 사용하세요:
 ```js
 fastify.addHook('preHandler', (request, reply, done) => {
   reply.code(400)
   done(new Error('Some error'))
 })
 ```
-*The error will be handled by [`Reply`](Reply.md#errors).*
+*이 오류는 [`응답`](Reply.md#errors)에 의해서 처리됩니다.*
 
-Or if you're using `async/await` you can just throw an error:
+또는 `async/await`을 사용하는 경우 단순히 오류를 발생시킬 수도 있습니다:
 ```js
 fastify.addHook('onResponse', async (request, reply) => {
   throw new Error('Some error')
 })
 ```
 
-### Respond to a request from a hook
+### 훅에서 요청에 응답하기
 
-If needed, you can respond to a request before you reach the route handler,
-for example when implementing an authentication hook.
-Replying from a hook implies that the hook chain is __stopped__ and
-the rest of the hooks and handlers are not executed. If the hook is
-using the callback approach, i.e. it is not an `async` function or it
-returns a `Promise`, it is as simple as calling `reply.send()` and avoiding
-calling the callback. If the hook is `async`, `reply.send()` __must__ be
-called _before_ the function returns or the promise resolves, otherwise, the
-request will proceed. When `reply.send()` is called outside of the
-promise chain, it is important to `return reply` otherwise the request
-will be executed twice.
+필요하다면 라우팅의 핸들러에 요청이 도달하기 전에 응답할 수 있습니다.
+예로는 인증 훅의 구현이 있습니다.
+훅에서 요청에 응답한다는 것은 훅 체인이 __중지됨__을 뜻하며 남은 훅과 핸들러가 실행되지 않을 것임을 의미합니.
+만약 훅이 콜백 방식을 사용한다면 콜백 방식을 피하면서 `reply.send()`를 호출하는 것만큼이나 간단합니다.
+만약 훅이 `async`라면, `reply.send()`는 __반드시__ 함수가 값을 반환하거나 프라미스가 해결되기 __전__에 호출되어야 합니다.
+그렇지 않으면 요청이 계속 진행될 것입니다.
+`reply.send()`가 프라미스 체인 외에서 호출되었다면 `return reply`를 추가하는 것은 중요합니다.
+그렇지 않으면 요청이 2번 실행될 것입니다.
 
-It is important to __not mix callbacks and `async`/`Promise`__, otherwise
-the hook chain will be executed twice.
+__콜백과 `async`/`Promise`를 섞지 않는 것__은 굉장히 중요합니다.
+그렇지 않으면 훅 체인이 2번 실행될 것입니다.
 
-If you are using `onRequest` or `preHandler` use `reply.send`.
+만약 `onRequest`나 `preHandler`를 사용하시고 계시다면 `reply.send`를 사용하세요.
 
 ```js
 fastify.addHook('onRequest', (request, reply, done) => {
   reply.send('Early response')
 })
 
-// Works with async functions too
+// 비동기 함수로도 작동합니다
 fastify.addHook('preHandler', async (request, reply) => {
   await something()
   reply.send({ hello: 'world' })
-  return reply // optional in this case, but it is a good practice
+  return reply // 이 경우에는 선택적이지만 권장됩니다
 })
 ```
 
-If you want to respond with a stream, you should avoid using an `async` function for the hook. If you must use an `async` function, your code will need to follow the pattern in [test/hooks-async.js](https://github.com/fastify/fastify/blob/94ea67ef2d8dce8a955d510cd9081aabd036fa85/test/hooks-async.js#L269-L275).
+만약 스트림으로 응답하고 싶으시다면 훅에 `async` 함수를 사용하는 것을 피해야 합니다.
+반드시 `async` 함수를 사용해야 한다면 코드는 다음 패턴을 따라야 할 것입니다:
+[test/hooks-async.js](https://github.com/fastify/fastify/blob/94ea67ef2d8dce8a955d510cd9081aabd036fa85/test/hooks-async.js#L269-L275)
 
 ```js
 fastify.addHook('onRequest', (request, reply, done) => {
@@ -301,29 +303,26 @@ fastify.addHook('onRequest', (request, reply, done) => {
 })
 ```
 
-If you are sending a response without `await` on it, make sure to always
-`return reply`:
+만약 `await`없이 요청을 반환하고 있다면 단순히 언제나 `return reply`를 하면 됩니다:
 
 ```js
 fastify.addHook('preHandler', async (request, reply) => {
   setImmediate(() => { reply.send('hello') })
 
-  // This is needed to signal the handler to wait for a response
-  // to be sent outside of the promise chain
+  // 핸들러에 요청이 프라미스 체인 외부에서 전달될 때까지 기다리라고 알려주기 위해 필요합니다
   return reply
 })
 
 fastify.addHook('preHandler', async (request, reply) => {
-  // the fastify-static plugin will send a file asynchronously,
-  // so we should return reply
+  // fastify-static 플러그인이 파일을 비동기적으로 전송하기 때문에 return reply가 필요합니다
   reply.sendFile('myfile')
   return reply
 })
 ```
 
-## Application Hooks
+## 애플리케이션 훅
 
-You can hook into the application-lifecycle as well.
+애플리케이션 생명 주기에도 훅을 주입할 수 있습니다.
 
 - [onReady](#onready)
 - [onClose](#onclose)
@@ -331,23 +330,25 @@ You can hook into the application-lifecycle as well.
 - [onRegister](#onregister)
 
 ### onReady
-Triggered before the server starts listening for requests and when `.ready()` is invoked. It cannot change the routes or add new hooks.
-Registered hook functions are executed serially.
-Only after all `onReady` hook functions have completed will the server start listening for requests.
-Hook functions accept one argument: a callback, `done`, to be invoked after the hook function is complete.
-Hook functions are invoked with `this` bound to the associated Fastify instance.
+
+서버가 요청을 받아들이기 전과 `.ready()`가 실행되었을 때 작동합니다.
+기존 라우팅을 변경하거나 새 훅을 추가할 수는 없습니다.
+등록된 훅들은 순서대로 실행됩니다.
+모든 `onReady` 훅 함수들이 완료된 이후에만 서버가 요청을 받기 시작할 것입니다.
+훅 함수들은 하나의 인자를 받습니다: 훅 함수가 완료된 후 호출되기 위한 콜백, `done`.
+훅 함수들은 Fastify 인스턴스의 `this` 바운딩과 함께 호출됩니다.
 
 ```js
-// callback style
+// 콜백 스타일
 fastify.addHook('onReady', function (done) {
-  // Some code
+  // 코드 몇 줄
   const err = null;
   done(err)
 })
 
-// or async/await style
+// async/await 스타일
 fastify.addHook('onReady', async function () {
-  // Some async code
+  // 비동기 코드 몇 줄
   await loadCacheFromDatabase()
 })
 ```
@@ -355,11 +356,14 @@ fastify.addHook('onReady', async function () {
 <a name="on-close"></a>
 
 ### onClose
-Triggered when `fastify.close()` is invoked to stop the server. It is useful when [plugins](Plugins.md) need a "shutdown" event, for example, to close an open connection to a database.<br/>
-The first argument is the Fastify instance, the second one the `done` callback.
+
+`fastify.close()`가 서버를 중지시키기 위해 호출되었을 때 작동합니다.
+[플러그인](Plugins.md)가 "종료" 이벤트를 필요로 한다면 유용합니다.
+예를 들어 데이터베이스 연결을 닫을 때입니다.
+첫 번째 인자는 Fastify 인스턴스이고 두 번째는 `done` 콜백입니다.
 ```js
 fastify.addHook('onClose', (instance, done) => {
-  // Some code
+  // 코드 몇 줄
   done()
 })
 ```
@@ -367,15 +371,19 @@ fastify.addHook('onClose', (instance, done) => {
 <a name="on-route"></a>
 
 ### onRoute
-Triggered when a new route is registered. Listeners are passed a `routeOptions` object as the sole parameter. The interface is synchronous, and, as such, the listeners are not passed a callback. This hook is encapsulated.
+
+새로운 라우팅이 등록되었을 때 작동합니다.
+리스너에게는 `routeOptions`라는 한 가지 객체가 인자로 주어집니다.
+이 인터페이스는 동기식이며 이러한 리스너는 콜백으로 전달되어서는 안 됩니다.
+이 훅은 캡슐화되어 있습니다.
 ```js
 fastify.addHook('onRoute', (routeOptions) => {
-  //Some code
+  // 코드 몇 줄
   routeOptions.method
   routeOptions.schema
-  routeOptions.url // the complete URL of the route, it will include the prefix if any
-  routeOptions.path // `url` alias
-  routeOptions.routePath // the URL of the route without the prefix
+  routeOptions.url // 라우팅에 대한 완전한 URL이며 접두사를 포함할 것입니다
+  routeOptions.path // `url` 별칭
+  routeOptions.routePath // 접두사를 제외한 라우팅 URL입니다
   routeOptions.bodyLimit
   routeOptions.logLevel
   routeOptions.logSerializers
@@ -383,15 +391,15 @@ fastify.addHook('onRoute', (routeOptions) => {
 })
 ```
 
-If you are authoring a plugin and you need to customize application routes, like modifying the options or adding new route hooks, this is the right place.
+만약 플러그인을 작성하고 있고 옵션을 수정하거나 새로운 라우팅 훅을 추가하는 등 애플리케이션 라우팅을 직접 설정할 필요가 있으시다면 여기에서 시작해야 합니다.
 
 ```js
 fastify.addHook('onRoute', (routeOptions) => {
   function onPreSerialization(request, reply, payload, done) {
-    // Your code
+    // 사용자 코드
     done(null, payload)
   }
-  // preSerialization can be an array or undefined
+  // preSerialization은 배열 혹은 undefined가 되어야 합니다
   routeOptions.preSerialization = [...(routeOptions.preSerialization || []), onPreSerialization]
 })
 ```
