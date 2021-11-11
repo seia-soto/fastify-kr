@@ -407,9 +407,11 @@ fastify.addHook('onRoute', (routeOptions) => {
 <a name="on-register"></a>
 
 ### onRegister
-Triggered when a new plugin is registered and a new encapsulation context is created. The hook will be executed **before** the registered code.<br/>
-This hook can be useful if you are developing a plugin that needs to know when a plugin context is formed, and you want to operate in that specific context, thus this hook is encapsulated.<br/>
-**Note:** This hook will not be called if a plugin is wrapped inside [`fastify-plugin`](https://github.com/fastify/fastify-plugin).
+
+새로운 플러그인이 등록되거나 새로운 캡슐화 컨텍스트가 생성되었을 때 작동합니다.
+이 훅은 등록된 코드 **이전에** 실행될 것입니다.<br/>
+이 훅은 캡슐화되기 때문에 플러그인 컨텍스트가 형성될 시기를 알거나 특정 컨텍스트에서 무언가를 실행하고 싶을 때 유용합니다.<br/>
+**안내:** 이 훅은 만약 플러그인이 [`fastify-plugin`](https://github.com/fastify/fastify-plugin)으로 랩되어 있다면 호출되지 않을 것입니다.
 ```js
 fastify.decorate('data', [])
 
@@ -428,30 +430,29 @@ fastify.register(async (instance, opts) => {
 }, { prefix: '/hello' })
 
 fastify.addHook('onRegister', (instance, opts) => {
-  // Create a new array from the old one
-  // but without keeping the reference
-  // allowing the user to have encapsulated
-  // instances of the `data` property
+  // 참조를 유지하면서 사용자가 `data` 속성의 캡슐화된 인스턴스를 가질 수 있도록 이전의 것에서 새로운 배열을 만듭니다
   instance.data = instance.data.slice()
 
-  // the options of the new registered instance
+  // 새롭게 등록된 인스턴스 옵션
   console.log(opts.prefix)
 })
 ```
 
 <a name="scope"></a>
 
-## Scope
-Except for [onClose](#onclose), all hooks are encapsulated. This means that you can decide where your hooks should run by using `register` as explained in the [plugins guide](Plugins-Guide.md). If you pass a function, that function is bound to the right Fastify context and from there you have full access to the Fastify API.
+## 스코
+[onClose](#onclose)를 제외하고서 모든 훅은 캡슐화되어 있습니다.
+이것은 [플러그인 가이드](Plugins-Guide.md)에 설명된 것과 같이 `register`를 사용하여 어느 지점에서 훅들이 실행되어야 할지 결정할 수 있다는 것을 의미합니다.
+만약 함수를 인자로 전달한다면 함수는 Fastify 컨텍스트에 바운드되고 Fastify API에 전체 액세스를 가지게 됩니다.
 
 ```js
 fastify.addHook('onRequest', function (request, reply, done) {
-  const self = this // Fastify context
+  const self = this // Fastify 컨텍스트
   done()
 })
 ```
 
-Note that the Fastify context in each hook is the same as the plugin where the route was registered, for example:
+각각의 훅의 Fastify 컨텍스트는 등록된 라우팅과 같은 것이라는 것을 확인하세요. 예를 들어:
 
 ```js
 fastify.addHook('onRequest', async function (req, reply) {
@@ -477,59 +478,59 @@ fastify.register(async function plugin (fastify, opts) {
 })
 ```
 
-Warn: if you declare the function with an [arrow function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions), the `this` will not be Fastify, but the one of the current scope.
+경고: 만약 [화살표 함수](https://developer.mozilla.org/ko-KR/docs/Web/JavaScript/Reference/Functions/Arrow_functions)로 정의한다면 `this`가 Fastify가 아닌 현재 스코프의 것 중 하나가 될 것입니다.
 
 <a name="route-hooks"></a>
 
-## Route level hooks
-You can declare one or more custom lifecycle hooks ([onRequest](#onrequest), [onResponse](#onresponse), [preParsing](#preparsing), [preValidation](#prevalidation), [preHandler](#prehandler), [preSerialization](#preserialization), [onSend](#onsend), [onTimeout](#ontimeout), and [onError](#onerror)) hook(s) that will be **unique** for the route.
-If you do so, those hooks are always executed as the last hook in their category. <br/>
-This can be useful if you need to implement authentication, where the [preParsing](#preparsing) or [preValidation](#prevalidation) hooks are exactly what you need.
-Multiple route-level hooks can also be specified as an array.
+## 라우팅 수준의 훅
+라우팅에 대해 *고유한* 하나 혹은 그 이상의 생명 주기 훅([onRequest](#onrequest), [onResponse](#onresponse), [preParsing](#preparsing), [preValidation](#prevalidation), [preHandler](#prehandler), [preSerialization](#preserialization), [onSend](#onsend), [onTimeout](#ontimeout), 그리고 [onError](#onerror))을 정의할 수 있습니다.
+만약 이렇게 하면 훅은 언제나 동일 부류의 훅들 중 마지막에 실행될 것입니다.<br/>
+이것은 인증 절차를 구현할 때 유용한데, [preParsing](#preparsing)이나 [preValidation](#prevalidation) 훅은 정확히 당신이 필요로 하는 것입니다.
+여러개의 라우팅 수준의 훅은 배열로도 정의될 수 있습니다.
 
 ```js
 fastify.addHook('onRequest', (request, reply, done) => {
-  // Your code
+  // 코드 몇 줄
   done()
 })
 
 fastify.addHook('onResponse', (request, reply, done) => {
-  // your code
+  // 코드 몇 줄
   done()
 })
 
 fastify.addHook('preParsing', (request, reply, done) => {
-  // Your code
+  // 코드 몇 줄
   done()
 })
 
 fastify.addHook('preValidation', (request, reply, done) => {
-  // Your code
+  // 코드 몇 줄
   done()
 })
 
 fastify.addHook('preHandler', (request, reply, done) => {
-  // Your code
+  // 코드 몇 줄
   done()
 })
 
 fastify.addHook('preSerialization', (request, reply, payload, done) => {
-  // Your code
+  // 코드 몇 줄
   done(null, payload)
 })
 
 fastify.addHook('onSend', (request, reply, payload, done) => {
-  // Your code
+  // 코드 몇 줄
   done(null, payload)
 })
 
 fastify.addHook('onTimeout', (request, reply, done) => {
-  // Your code
+  // 코드 몇 줄
   done()
 })
 
 fastify.addHook('onError', (request, reply, error, done) => {
-  // Your code
+  // 코드 몇 줄
   done()
 })
 
@@ -538,45 +539,45 @@ fastify.route({
   url: '/',
   schema: { ... },
   onRequest: function (request, reply, done) {
-    // This hook will always be executed after the shared `onRequest` hooks
+    // 이 훅은 언제나 공유된 `onRequest` 이후에 실행됩니다
     done()
   },
   onResponse: function (request, reply, done) {
-    // this hook will always be executed after the shared `onResponse` hooks
+    // 이 훅은 언제나 공유된 `onResponse` 이후에 실행됩니다
     done()
   },
   preParsing: function (request, reply, done) {
-    // This hook will always be executed after the shared `preParsing` hooks
+    // 이 훅은 언제나 공유된 `preParsing` 이후에 실행됩니다
     done()
   },
   preValidation: function (request, reply, done) {
-    // This hook will always be executed after the shared `preValidation` hooks
+    // 이 훅은 언제나 공유된 `preValidation` 이후에 실행됩니다
     done()
   },
   preHandler: function (request, reply, done) {
-    // This hook will always be executed after the shared `preHandler` hooks
+    // 이 훅은 언제나 공유된 `preHandler` 이후에 실행됩니다
     done()
   },
-  // // Example with an array. All hooks support this syntax.
+  // // 배열 예제. 모든 훅은 아래 형식을 지원합니다.
   //
   // preHandler: [function (request, reply, done) {
-  //   // This hook will always be executed after the shared `preHandler` hooks
+  //   // 이 훅은 언제나 공유된 `preHandler` 이후에 실행됩니다
   //   done()
   // }],
   preSerialization: (request, reply, payload, done) => {
-    // This hook will always be executed after the shared `preSerialization` hooks
+    // 이 훅은 언제나 공유된 `preSerialization` 이후에 실행됩니다
     done(null, payload)
   },
   onSend: (request, reply, payload, done) => {
-    // This hook will always be executed after the shared `onSend` hooks
+    // 이 훅은 언제나 공유된 `onSend` 이후에 실행됩니다
     done(null, payload)
   },
   onTimeout: (request, reply, done) => {
-    // This hook will always be executed after the shared `onTimeout` hooks
+    // 이 훅은 언제나 공유된 `onTimeout` 이후에 실행됩니다
     done()
   },
   onError: (request, reply, error, done) => {
-    // This hook will always be executed after the shared `onError` hooks
+    // 이 훅은 언제나 공유된 `onError` 이후에 실행됩니다
     done()
   },
   handler: function (request, reply) {
@@ -585,31 +586,23 @@ fastify.route({
 })
 ```
 
-**Note**: both options also accept an array of functions.
+**참고**: 모든 옵션은 함수 배열도 지원합니다.
 
-## Diagnostics Channel Hooks
+## Diagnostics Channel 훅
 
-> **Note:** The `diagnostics_channel` is currently experimental on Node.js, so
-> its API is subject to change even in semver-patch releases of Node.js. For
-> versions of Node.js supported by Fastify where `diagnostics_channel` is
-> unavailable, the hook will use the
-> [polyfill](https://www.npmjs.com/package/diagnostics_channel) if it is
-> available. Otherwise this feature will not be present.
+> **참고**: `diagnostics_channel`은 Node.JS에서 현재 실험 기능이기 때문에 API가 Node.JS의 semver-패치 릴리즈에서 변경될 수 있습니다.
+> Fastify가 지원하는 Node.JS 버전 중 `diagnostics_channel`를 지원하지 않는 버전은 가능하면 이 [polyfill](https://www.npmjs.com/package/diagnostics_channel)을 사용할 것입니다.
+> polyfill을 사용할 수 없다면 이 기능은 비활성화됩니다.
 
-Currently, one
-[`diagnostics_channel`](https://nodejs.org/api/diagnostics_channel.html) publish
-event, `'fastify.initialization'`, happens at initialization time. The Fastify
-instance is passed into the hook as a property of the object passed in. At this
-point, the instance can be interacted with to add hooks, plugins, routes or any
-other sort of modification.
+현재, [`diagnostics_channel`](https://nodejs.org/api/diagnostics_channel.html)은 하나의 `'fastify.initialization'` 이벤트를 초기화 시간에 발행할 것입니다.
+Fastify 객체는 훅에 객체의 속성으로 전달됩니다.
+이 점에서 볼 때, 객체에 훅, 플러그인, 라우팅 혹은 그 어떤 수정 사항이라도 추가될 수 있습니다.
 
-For example, a tracing package might do something like the following (which is,
-of course, a simplification). This would be in a file loaded in the
-initialization of the tracking package, in the typical "require instrumentation
-tools first" fashion.
+예를 들어, 추적 중인 패키지가 다음과 같은 것(당연히, 단순화한 것입니다)을 할 수 있습니다.
+형식적으로 "필요한 도구가 선 요구되는", 이것은 추적 중인 패키지가 초기화될 때 로드된 파일이 될 수 있습니다.
 
 ```js
-const tracer = /* retrieved from elsehwere in the package */
+const tracer = /* 패키지의 다른 곳에서 가져와지는 */
 const dc = require('diagnostics_channel')
 const channel = dc.channel('fastify.initialization')
 const spans = new WeakMap()
