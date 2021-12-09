@@ -385,7 +385,7 @@ fastify.get('/', opts, async (request, reply) => {
 
 ### 서버 확장하기
 Fastify는 굉장히 작고 확장성있게 설계되었고 저희는 멋진 애플리케이션을 만들기 위해 필수적인 것이 준비된 베어-본 프레임워크만으로도 충분하다고 믿습니다.<br/>
-다시 말하자면, Fastify는 "batteries included"한 (모든 것이 준비된) 프레임워크가 아니라 엄청난 [생태계](Echosystem.md)에 의존하는 프레임워크라는 것입니다!
+다시 말하자면, Fastify는 "batteries included"한 (모든 것이 준비된) 프레임워크가 아니라 엄청난 [생태계](Ecosystem.md)에 의존하는 프레임워크라는 것입니다!
 
 <a name="test-server"></a>
 
