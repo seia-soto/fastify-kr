@@ -14,7 +14,7 @@ fastify.use(require('ienoopen')())
 fastify.use(require('x-xss-protection')())
 ```
 
-또한 당신은 간단히 향상된 성능을 가졌으며 Express 스타일의 미들웨어 지원을 제공하는 [`middle`](https://github.com/fastify/middle)을 사용할 수 있습니다.
+또한 간단히 말하자면 향상된 성능을 가졌으며 Express 스타일의 미들웨어 지원을 제공하는 [`middle`](https://github.com/fastify/middle)을 사용할 수 있습니다.
 
 ```js
 await fastify.register(require('middie'))
@@ -25,13 +25,13 @@ fastify.use(require('cors')())
 
 Fastify 미들웨어는 `send` 메서드나 Fastify [응답](Reply.md#reply) 인스턴스에 서술된 메서드를 노출하지 않습니다.
 이것은 Fastify가 들어오는 `req`와 `res` 노드 인스턴스를 [요청](Request.md#request)과 [응답](Reply.md#reply)을 통하여 내부적으로 감싸기 때문인데 이것은 미들웨어 실행 이후에 완료되기 때문입니다.
-만약 당신이 미들웨어를 만들어야 한다면, 노드의 `req`와 `res` 인스턴스를 사용해야 합니다.
+만약 미들웨어를 만들고자 한다면, 노드의 `req`와 `res` 인스턴스를 사용해야 합니다.
 이렇게 하고 싶지 않다면 `preHandler` 훅을 통해 이미 존재하는 [요청](Request.md#request)과 [응답](Reply.md#reply) Fastify 인스턴스를 사용할 수 있습니다.
 더 많은 정보는 [훅](Hooks.md#hooks)을 살펴보시기 바랍니다.
 <a name="restrict-usage"></a>
 
 #### 미들웨어가 특정 경로에서만 실행되게 하기
-만약 당신이 특정 경로에서만 미들웨어를 실행되게 하고자 한다면 단순히 `use`의 첫 번째 파라메터에 경로를 제공하면 됩니다!
+만약 특정 경로에서만 미들웨어를 실행되게 하고자 한다면 단순히 `use`의 첫 번째 파라메터에 경로를 제공하면 됩니다!
 
 *이것은 파라메터를 가진 라우팅을 지원하지 않는다는 점을 참고하세요, (예를 들어 `/user/:id/comments`)와 와일드카드는 다중 경로에서 지원되지 않을 것입니다.*
 

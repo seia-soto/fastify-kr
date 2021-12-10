@@ -19,13 +19,13 @@ fastify.get('/', options, function (request, reply) {
 })
 ```
 
-당신은 라우팅 핸들러 외부에서 Fastify 인스턴스의 Pino 인스턴스를 사용하여 새로운 로그를 발생시킬 수도 있습니다:
+라우팅 핸들러 외부에서 Fastify 인스턴스의 Pino 인스턴스를 사용하여 새로운 로그를 발생시킬 수도 있습니다:
 ```js
 fastify.log.info('뭔가 중요한 일이 발생했어요!');
 ```
 
-만약 당신이 로거에 몇몇 옵션을 전달하고자 한다면 그것을 그저 단순히 Fastify에 전달시킬 수 있습니다.
-그리고 당신은 모든 사용가능한 옵션을 [Pino 문서](https://github.com/pinojs/pino/blob/master/docs/api.md#pinooptions-stream)에서 찾을 수 있습니다.
+만약 로거에 몇몇 옵션을 전달하고자 한다면 그것을 그저 단순히 Fastify에 전달시킬 수 있습니다.
+그리고 모든 사용가능한 옵션을 [Pino 문서](https://github.com/pinojs/pino/blob/master/docs/api.md#pinooptions-stream)에서 찾을 수 있습니다.
 만약 특정 파일 위치를 가리키고 싶으시다면, 다음을 사용하세요:
 
 ```js
@@ -42,7 +42,7 @@ fastify.get('/', options, function (request, reply) {
 })
 ```
 
-만약 당신이 Pino 인스턴스에 특정 스트림을 전달하고 싶으시다면, 그저 로거 객체에 stream 필드를 추가하기만 해도 됩니다.
+만약 Pino 인스턴스에 특정 스트림을 전달하고 싶으시다면, 그저 로거 객체에 stream 필드를 추가하기만 해도 됩니다.
 
 ```js
 const split = require('split2')
@@ -96,7 +96,7 @@ const fastify = require('fastify')({
           path: request.path,
           parameters: request.parameters,
           // 로그에 헤더를 포함하는 것은 GDPR과 같은 개인정보 보호법을 위반할 수 있습니다.
-          // 당신은 반드시 "redact" 옵션을 통해 개인정보가 포함된 필드를 삭제해야 합니다.
+          // 반드시 "redact" 옵션을 통해 개인정보가 포함된 필드를 삭제해야 합니다.
           // 이것은 또한 인증 정보를 로그에 흘릴 수도 있다는 것을 의미합니다.
           headers: request.headers
         };
@@ -121,9 +121,9 @@ app.addHook('preHandler', function (req, reply, done) {
 
 *Pino가 아닌 모든 로거는 아래 옵션을 무시할 것입니다.*
 
-당신은 또한 당신의 로거 인스턴스를 설정할 수도 있습니다.
+또한 자신만의 로거 인스턴스를 설정할 수도 있습니다.
 설정 옵션을 전달하는 대신 인스턴스 자체를 전달하세요.
-당신이 제공한 로거는 반드시 Pino 인터페이스에 맞추어져야 합니다; 이 말인 즉슨, 반드시 다음 메서드를 가지고 있어야 한다는 것을 뜻합니다:
+직접 제공할 로거는 반드시 Pino 인터페이스에 맞추어져야 합니다; 이 말인 즉슨, 반드시 다음 메서드를 가지고 있어야 한다는 것을 뜻합니다:
 `info`, `error`, `debug`, `fatal`, `warn`, `trace`, `child`.
 
 예시:
