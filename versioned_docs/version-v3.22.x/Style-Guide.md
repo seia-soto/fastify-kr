@@ -1,18 +1,22 @@
 # Fastify 스타일 가이드
 
-## Welcome
+## 시작하기
 
-Welcome to *Fastify Style Guide*. This guide is here to provide you with a conventional writing style for users writing developer documentation on our Open Source framework. Each topic is precise and well explained to help you write documentation users can easily understand and implement.
+*Fastify 스타일 가이드*에 오신 것을 환영합니다.
+이 가이드는 개발자 문서를 작성하고 계시거나 오픈소스 프레임워크를 작성하고 계신 여러분을 위해 관습적인 필기체를 알려드리기 위해 만들어졌습니다.
+각각의 구간은 사용자가 문서를 쉽고 정확하게 이해할 수 있는 문서를 작성할 수 있도록 여러분에게 정확하고 잘 설명해줄 것입니다.
 
-## Who is this guide for?
+## 이 가이드를 읽어야 하는 사람은 누구인가요?
 
-This guide is for anyone who loves to build with Fastify or wants to contribute to our documentation. You do not need to be an expert in writing technical documentation. This guide is here to help you.
+이 가이드는 Fastify를 만들고 싶어하거나 저희의 문서에 기여하고자 하는 모든 분들을 위한 것입니다.
+기술 문서 작성에 있어서 꼭 전문가가 되어야 하는 것은 아닙니다.
+이 가이드가 여러분을 돕기 위해 여기에 있습니다.
 
-Visit the [contribute](https://www.fastify.io/contribute) page on our website or read the [CONTRIBUTING.md](https://github.com/fastify/fastify/blob/main/CONTRIBUTING.md) file on GitHub to join our Open Source folks.
+저희의 오픈소스 동료가 되기 위해서는 저희 웹 사이트의 [기여](https://www.fastify.io/contribute) 페이지를 방문하시거나 GitHub의 [CONTRIBUTING.md](https://github.com/fastify/fastify/blob/main/CONTRIBUTING.md) 파일을 읽어주세요.
 
-## Before you write
+## 작성 전
 
-You need to know the following:
+여러분은 다음의 것들에 대해 알아야 할 필요가 있습니다:
 
 * JavaScript
 * Node.js
@@ -22,42 +26,56 @@ You need to know the following:
 * HTTP
 * NPM
 
-### Consider your Audience
+### 청중을 고려하세요
 
-Before you start writing, think about your audience. In this case, your audience should already know HTTP, JavaScript, NPM, and Node.js. It is necessary to keep your readers in mind because they are the ones consuming your content. You want to give as much useful information as possible. Consider the vital things they need to know and how they can understand them. Use words and references that readers can relate to easily. Ask for feedback from the community, it can help you write better documentation that focuses on the user and what you want to achieve.
+글을 적어나가기 시작하기 전에 여러분의 청중에 대해 생각해보세요.
+이 경우에는 여러분의 청중은 분명히 이미 HTTP, JavaScript, NPM, 그리고 Node.JS를 알고 있을 것입니다.
+이 것은 저희 글을 읽게 될 독자를 생각하는 것이며 필수적입니다.
+여러분은 분명 청중에게 가능한 한 많은 유용한 정보를 전달하고 싶으실 겁니다.
+그들이 알아야할 필수적인 것과 그들이 어떻게 이해할지 생각해보세요.
+독자들이 쉽게 관계지을 수 있는 용어를 사용하세요.
+커뮤니티에 의견을 물어보는 것은 여러분이 성취하고자 하는 사용자 입장에서 생각하는 더 나은 문서화 작업을 할 수 있게 도울 수 있습니다.
 
-### Get straight to the point
+### 핵심에 다가가기
 
-Give your readers a clear and precise action to take. Start with what is most important. This way, you can help them find what they need faster. Mostly, readers tend to read the first content on a page, and many will not scroll further.
+독자들에게 그들이 해야 할 정확하고 명확한 동작을 설명하세요.
+무엇이 가장 중요한지 설명하는 것부터 시작해야 합니다.
+이 방식으로 당신은 독자들이 찾고자 하는 것을 더욱 빨리 찾도록 할 수 있습니다.
+주로 독자들은 페이지를 스크롤하지 않고 첫 번째 콘텐츠만 보는 경향이 있기 때문입니다.
 
-**Example**
+**예시**
 
-Less like this: Colons are very important to register a parametric path. It lets the framework know there is a new parameter created. You can place the colon before the parameter name so the parametric path can be created.
+피하세요: 콜론은 동적 경로를 등록하는데 있어서 굉장히 중요합니다.
+이 것은 프레임워크에게 새로운 파라메터가 생성되었다는 것을 알립니다.
+콜론을 파라메터 이름 앞에 위치시켜 동적 경로를 생성할 수 있습니다.
 
-More Like this: To register a parametric path, put a colon before the parameter name. Using a colon lets the framework know it is a parametric path and not a static path.
+이렇게 하세요: 동적 경로를 등록하기 위해서는 파라메터 이름 앞에 콜론을 넣으세요.
+콜론을 사용하여 프레임워크에게 이것이 정적이 아닌 동적 경로라는 것을 알릴 수 있습니다.
 
-### Avoid adding video or image content
+### 영상이나 이미지를 추가하는 것을 피하세요
 
+문서에 영상이나 스크린샷을 추가하지 마세요.
+이렇게 하면 버전 관리에서 더 관리하기가 쉽습니다.
+영상과 이미지는 결국에 새로운 업데이트가 출시됨에 따라서 더 이상 사용하지 못할 가능성이 농후합니다.
+대신 참고 링크나 YouTube 영상을 추가하세요.
+마크다운에서 `[Title](www.websitename.com)`와 같은 형식으로 추가할 수 있습니다.
 
-Do not add videos or screenshots in the documentation. It is easier to keep under version control. Videos and images will eventually end up becoming outdated as new updates keep developing. Instead, make a referral link or a YouTube video. You can add links by using `[Title](www.websitename.com)` in the markdown.
-
-**Example**
+**예시**
 
 ```
-To learn more about hooks, see [Fastify hooks](https://www.fastify.io/docs/latest/Hooks).
+훅에 대해서 더 알아보길 원하신다면 [Fastify 훅](https://www.fastify.io/docs/latest/Hooks)을 보세요.
 ```
 
-Result:
->To learn more about hooks, see [Fastify hooks](https://www.fastify.io/docs/latest/Hooks/).
+결과:
+> 훅에 대해서 더 알아보길 원하신다면 [Fastify 훅](https://www.fastify.io/docs/latest/Hooks)을 보세요.
 
+### 표절하지 마세요
 
+다른 사람들의 작업물을 빼앗지 않도록 하세요.
+여러분들의 고유한 작업물을 가능한 한 최대한 유지하세요.
+여러분은 그들이 무엇을 했는지 배울 수 있고 인용했다면 그것의 출처를 표기할 수도 있습니다.
 
-### Avoid plagiarism
-
-Make sure you avoid copying other people's work. Keep it as original as possible. You can learn from what they have done and reference where it is from if you used a particular quote from their work.
-
-
-## Word Choice
+## 단어 선택
 
 There are a few things you need to use and avoid when writing your documentation to improve readability for readers and make documentation neat, direct, and clean.
 
