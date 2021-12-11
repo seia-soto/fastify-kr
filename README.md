@@ -4,6 +4,8 @@ Fastify-KR은 docusaurus로 만들어진 비공식 Fastify 한국어 웹 사이�
 
 > Fastify-KR is unofficial Korean Fastify website built with docusaurus.
 
+- [Translation](#translation)
+
 ----
 
 # Translation
@@ -58,3 +60,25 @@ yarn create-version v[VERSION]
 ```
 
 그리고 [`version.json`](/version.json)을 적절히 수정해주세요.
+
+## 몇 가지 규칙
+
+저는 문서가 읽는 편의에 대해서 중점을 맞춰서 작성되어야 한다고 생각합니다.
+그래서 꼭 여러분이 맞춤법 등을 강력하게 지켜야 한다고는 생각하지 않아요.
+읽기 편하게 작성해주세요.
+
+**원문의 번역이라고는 하지만 여러분의 생각이 충분히 들어갈 수 있습니다.**
+
+1. `you`의 번역
+
+`you`라는 단어는 없는 것이 자연스러우나 번역 시에 필요로 하게 될 수 있습니다.
+이 때 문맥에 맞추어서 다음 중 하나로 번역할 수 있습니다:
+
+- 여러분
+- 당신
+- (생략)
+
+2. 문장 끝에 _다음_ 등으로 추가되는 콜론
+
+**그대로 써주세요.**
+이유는 그 뒤에 나오는 정렬된 컨텐츠들이 읽기 쉽기 때문입니다.
