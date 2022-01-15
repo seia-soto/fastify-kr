@@ -11,9 +11,9 @@ Node.JS에서 예상치 못한 오류들은 메모리 누수, 파일 설명자 �
 상식적으로 모든 예상치 못한 오류들을 처리하는 것은 불가능하지만 이것들을 다루는 가장 좋은 방법은 [크래시](https://nodejs.org/api/process.html#process_warning_using_uncaughtexception_correctly)를 내는 것입니다.
 
 #### 프라미스에서의 오류 처리
-Node.JS에서 처리되지 않은 프라미스 거부 (`.catch()` 핸들러가 없는 프라미스) 또한 메모리 누수와 파일 설명자 유출을 발생시킬 수 있습니다.
-`unhandledRejection`이 Node.JS에서 더 이상 사용되지 않아 처리되지 않은 프라미스 거부는 발생하지 않겠지만 여전히 유출의 가능성이 있습니다.
-[`make-promises-safe`](https://github.com/mcollina/make-promises-safe)와 같은 모듈을 사용하여 반드시 _언제나_ 처리되지 않은 프라미스 거부들이 발생하도록 해야 합니다.
+Node.JS에서 처리되지 않은 프라미스 예외 (`.catch()` 핸들러가 없는 프라미스) 또한 메모리 누수와 파일 설명자 유출을 발생시킬 수 있습니다.
+`unhandledRejection`이 Node.JS에서 더 이상 사용되지 않아 처리되지 않은 프라미스 예외는 발생하지 않겠지만 여전히 유출의 가능성이 있습니다.
+[`make-promises-safe`](https://github.com/mcollina/make-promises-safe)와 같은 모듈을 사용하여 반드시 _언제나_ 처리되지 않은 프라미스 예외들이 발생하도록 해야 합니다.
 
 만약 프라미스를 사용하고 있다면 반드시 `.catch()` 핸들러를 동적으로 추가하도록 하세요.
 
